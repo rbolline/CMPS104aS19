@@ -1,4 +1,31 @@
-# $Id: Makefile,v 1.2 2019-04-11 12:17:42-07 - - $
+head	1.2;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.2
+date	2019.04.11.19.17.42;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2019.04.11.19.17.22;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@-
+@
+text
+@# $Id: Makefile,v 1.1 2019-04-03 17:34:13-07 - - $
 
 WARNING     = -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast
 COMPILECPP = g++ -std=gnu++17 -g -O0 ${WARNING}
@@ -42,4 +69,27 @@ dep :
 
 include Makefile.dep
 
+test : ${EXECBIN}
+	${VALGRIND} ${EXECBIN} foo.oc 1>test.out 2>&1
 
+misc.lis : ${DEPFILE} foo.oc foo1.oh foo2.oh
+	catnv ${DEPFILE} foo.oc foo1.oh foo2.oh >misc.lis
+
+lis : misc.lis test
+	mkpspdf ${LISTING} ${SRCFILES} misc.lis test.out
+
+again :
+	${MAKE} spotless dep all test lis
+
+@
+
+
+1.1
+log
+@-
+@
+text
+@d14 1
+a14 1
+SMALLFILES = ${DEPFILE} foo.oc foo1.oh foo2.oh
+@
