@@ -49,6 +49,17 @@ void set_debugflags (const char* flags) {
            debugflags, alldebugflags);
 }
 
+string stripsufx(string progname){
+    int len = progname.length();
+    string ocext = progname.substr(len-3, len);
+    if(ocext.compare(".oc") != 0){
+        fprintf(stderr, 
+        "Error: incorrect/missing .oc extension. \n");
+        exit(EXIT_FAILURE);
+    }
+    return progname.substr(0, len-3);
+}
+
 int main (int argc, char** argv) {
     int yy_flex_debug = 0;
     int yy_debug = 0;
@@ -76,6 +87,10 @@ int main (int argc, char** argv) {
                 break;
         }
     }
+    string base = basename(argv[optind]);
+    string progname = stripsufx(base);
+    std::cout << progname << '\n';
+    
 }
 
 
