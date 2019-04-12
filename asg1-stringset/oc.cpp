@@ -11,6 +11,7 @@ using namespace std;
 #include <wait.h>
 #include <unistd.h>
 #include <cassert>
+#include "string_set.h"
 
 const string CPP = "/usr/bin/cpp -nostdinc";
 constexpr size_t LINESIZE = 1024;
@@ -99,32 +100,33 @@ void eprint_status (const char* command, int status) {
 }
 
 void cpplines (FILE* pipe, const char* filename) {
-   int linenr = 1;
-   for (;;) {
-      char buffer[LINESIZE];
-      const char* fgets_rc = fgets (buffer, LINESIZE, pipe);
-      if (fgets_rc == nullptr) break;
-      chomp (buffer, '\n');
-      printf ("%s:line %d: [%s]\n", filename, linenr, buffer);
-      // http://gcc.gnu.org/onlinedocs/cpp/Preprocessor-Output.html
-      char inputname[LINESIZE];
-      int sscanf_rc = sscanf (buffer, "# %d \"%[^\"]\"",
-                              &linenr, inputname);
-      if (sscanf_rc == 2) {
-         printf ("DIRECTIVE: line %d file \"%s\"\n", linenr, inputname);
-         continue;
-      }
-      char* savepos = nullptr;
-      char* bufptr = buffer;
-      for (int tokenct = 1;; ++tokenct) {
-         char* token = strtok_r (bufptr, " \t\n", &savepos);
-         bufptr = nullptr;
-         if (token == nullptr) break;
-         printf ("token %d.%d: [%s]\n",
-                 linenr, tokenct, token);
-      }
-      ++linenr;
-   }
+    int linenr = 1;
+    for (;;) {
+        char buffer[LINESIZE];
+        const char* fgets_rc = fgets (buffer, LINESIZE, pipe);
+        if (fgets_rc == nullptr) break;
+        chomp (buffer, '\n');
+        printf ("%s:line %d: [%s]\n", filename, linenr, buffer);
+        // http://gcc.gnu.org/onlinedocs/cpp/Preprocessor-Output.html
+        char inputname[LINESIZE];
+        int sscanf_rc = sscanf (buffer, "# %d \"%[^\"]\"",
+                                &linenr, inputname);
+        if (sscanf_rc == 2) {
+            printf ("DIRECTIVE: line %d file \"%s\"\n", linenr, inputname);
+            continue;
+        }
+        char* savepos = nullptr;
+        char* bufptr = buffer;
+        for (int tokenct = 1;; ++tokenct) {
+            char* token = strtok_r (bufptr, " \t\n", &savepos);
+            bufptr = nullptr;
+            if (token == nullptr) break;
+            printf ("token %d.%d: [%s]\n",
+                    linenr, tokenct, token);
+            string_set::intern(token);
+        }
+        ++linenr;
+    }
 }
 
 int main (int argc, char** argv) {
@@ -158,8 +160,10 @@ int main (int argc, char** argv) {
     }
     const char* filename = basename(argv[optind]);
     string command = CPP + " " + argv[optind];
+
     printf ("command=\"%s\"\n", command.c_str());
     FILE* pipe = popen (command.c_str(), "r");
+    
     if (pipe == nullptr) {
         exit_status = EXIT_FAILURE;
         fprintf (stderr, "%s: %s: %s\n",
@@ -170,6 +174,10 @@ int main (int argc, char** argv) {
         eprint_status (command.c_str(), pclose_rc);
         if (pclose_rc != 0) exit_status = EXIT_FAILURE;
     }
+    //string strname = stripsufx(filename) + ".str"; .str string
+    
+    //string_set::dump(strname); Call this with .str file
+
 
     return exit_status;
 }
