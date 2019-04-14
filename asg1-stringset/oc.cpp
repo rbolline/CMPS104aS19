@@ -4,6 +4,7 @@ using namespace std;
 
 #include <errno.h>
 #include <libgen.h>
+#include <fstream>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -130,8 +131,8 @@ void cpplines (FILE* pipe, const char* filename) {
 }
 
 int main (int argc, char** argv) {
-    int yy_flex_debug = 0;
-    int yy_debug = 0;
+    //int yy_flex_debug = 0;
+    //int yy_debug = 0;
     int exit_status = EXIT_SUCCESS;
     string dstring;
     int opt;
@@ -139,10 +140,10 @@ int main (int argc, char** argv) {
     while((opt = getopt(argc, argv, "ly@:D:")) != -1){
         switch(opt) {
             case 'l':
-                yy_flex_debug = 1;
+                //yy_flex_debug = 1;
                 break;
             case 'y':
-                yy_debug = 1;
+                //yy_debug = 1;
                 break;
             case '@':
                 set_debugflags(optarg);
@@ -174,10 +175,10 @@ int main (int argc, char** argv) {
         eprint_status (command.c_str(), pclose_rc);
         if (pclose_rc != 0) exit_status = EXIT_FAILURE;
     }
-    //string strname = stripsufx(filename) + ".str"; .str string
-    
-    //string_set::dump(strname); Call this with .str file
 
+    string strname = stripsufx(filename) + ".str"; //.str string
+    FILE * outfile = fopen(strname.c_str(), "w");
+    string_set::dump(outfile); 
 
     return exit_status;
 }
