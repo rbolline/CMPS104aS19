@@ -34,7 +34,7 @@ ci :
 	checksource ${CHECKINS}
 
 clean :
-	- rm ${OBJECTS}
+	- rm ${OBJECTS} *.str
 
 spotless : clean
 	- rm ${EXECBIN} ${DEPFILE} 
