@@ -100,20 +100,17 @@ void eprint_status (const char* command, int status) {
    fprintf (stderr, "\n");
 }
 
-void cpplines (FILE* pipe, const char* filename) {
+void cpplines (FILE* pipe) {
     int linenr = 1;
     for (;;) {
         char buffer[LINESIZE];
         const char* fgets_rc = fgets (buffer, LINESIZE, pipe);
         if (fgets_rc == nullptr) break;
         chomp (buffer, '\n');
-        printf ("%s:line %d: [%s]\n", filename, linenr, buffer);
-        // http://gcc.gnu.org/onlinedocs/cpp/Preprocessor-Output.html
         char inputname[LINESIZE];
         int sscanf_rc = sscanf (buffer, "# %d \"%[^\"]\"",
                                 &linenr, inputname);
         if (sscanf_rc == 2) {
-            printf ("DIRECTIVE: line %d file \"%s\"\n", linenr, inputname);
             continue;
         }
         char* savepos = nullptr;
@@ -122,8 +119,6 @@ void cpplines (FILE* pipe, const char* filename) {
             char* token = strtok_r (bufptr, " \t\n", &savepos);
             bufptr = nullptr;
             if (token == nullptr) break;
-            printf ("token %d.%d: [%s]\n",
-                    linenr, tokenct, token);
             string_set::intern(token);
         }
         ++linenr;
@@ -151,18 +146,17 @@ int main (int argc, char** argv) {
             case 'D':
                 dstring = "-D";
                 dstring.append(optarg);
-                /*Call cpp on this string to suppress inclusion of
-                oclib.oh. */
+                /*Call cpp on this string to 
+                suppress inclusion of oclib.oh. */
                 break;
             default:
-                std::cout << "No option";
                 break;
         }
     }
     const char* filename = basename(argv[optind]);
     string command = CPP + " " + argv[optind];
 
-    printf ("command=\"%s\"\n", command.c_str());
+    //printf ("command=\"%s\"\n", command.c_str());
     FILE* pipe = popen (command.c_str(), "r");
     
     if (pipe == nullptr) {
@@ -170,7 +164,7 @@ int main (int argc, char** argv) {
         fprintf (stderr, "%s: %s: %s\n",
                 "oc", command.c_str(), strerror (errno));
     }else {
-        cpplines (pipe, filename);
+        cpplines (pipe);
         int pclose_rc = pclose (pipe);
         eprint_status (command.c_str(), pclose_rc);
         if (pclose_rc != 0) exit_status = EXIT_FAILURE;
