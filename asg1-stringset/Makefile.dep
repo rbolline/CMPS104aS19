@@ -1,2 +1,0 @@
-oc.o: oc.cpp string_set.h
-string_set.o: string_set.cpp string_set.h

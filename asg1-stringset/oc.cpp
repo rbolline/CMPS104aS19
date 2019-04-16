@@ -58,7 +58,7 @@ string stripsufx(string progname){
     string ocext = progname.substr(len-3, len);
     if(ocext.compare(".oc") != 0){
         fprintf(stderr, 
-        "Error: incorrect/missing .oc extension. \n");
+        "oc: ERROR: incorrect or missing .oc extension. \n");
         exit(EXIT_FAILURE);
     }
     return progname.substr(0, len-3);
@@ -119,7 +119,8 @@ void cpplines (FILE* pipe) {
             char* token = strtok_r (bufptr, " \t\n", &savepos);
             bufptr = nullptr;
             if (token == nullptr) break;
-            string_set::intern(token);
+            string_set::intern(token); 
+            
         }
         ++linenr;
     }
@@ -154,6 +155,7 @@ int main (int argc, char** argv) {
         }
     }
     const char* filename = basename(argv[optind]);
+    string strname = stripsufx(filename) + ".str"; //.str string
     string command = CPP + " " + argv[optind];
 
     //printf ("command=\"%s\"\n", command.c_str());
@@ -170,7 +172,6 @@ int main (int argc, char** argv) {
         if (pclose_rc != 0) exit_status = EXIT_FAILURE;
     }
 
-    string strname = stripsufx(filename) + ".str"; //.str string
     FILE * outfile = fopen(strname.c_str(), "w");
     string_set::dump(outfile); 
 
