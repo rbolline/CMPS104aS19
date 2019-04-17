@@ -16,7 +16,7 @@ using namespace std;
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string.h> 
 #include <wait.h>
 #include <unistd.h>
 #include <cassert>
@@ -115,10 +115,13 @@ void cpplines (FILE* pipe) {
         const char* fgets_rc = fgets (buffer, LINESIZE, pipe);
         if (fgets_rc == nullptr) break;
         chomp (buffer, '\n');
+        printf ("%s:line %d: [%s]\n", filename, linenr, buffer);
         char inputname[LINESIZE];
         int sscanf_rc = sscanf (buffer, "# %d \"%[^\"]\"",
                                 &linenr, inputname);
         if (sscanf_rc == 2) {
+            printf ("DIRECTIVE: line %d file \"%s\"\n",
+                     linenr, inputname);
             continue;
         }
         char* savepos = nullptr;
@@ -127,6 +130,8 @@ void cpplines (FILE* pipe) {
             char* token = strtok_r (bufptr, " \t\n", &savepos);
             bufptr = nullptr;
             if (token == nullptr) break;
+            printf ("token %d.%d: [%s]\n",
+                    linenr, tokenct, token);
             string_set::intern(token); 
             
         }
@@ -185,5 +190,7 @@ int main (int argc, char** argv) {
 
     return exit_status;
 }
+
+
 
 
