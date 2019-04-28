@@ -43,11 +43,9 @@ void __debugprintf (char flag, const char* file, int line,
                        __VA_ARGS__)
 #define DEBUGSTMT(FLAG,STMTS) \
        if (is_debugflag (FLAG)) { DEBUGF (FLAG, "\n"); STMTS }
-
 bool is_debugflag (char flag) {
    return alldebugflags or strchr (debugflags, flag) != nullptr;
 }
-
 void __debugprintf (char flag, const char* file, int line,
                     const char* func, const char* format, ...) {
    va_list args;
@@ -60,7 +58,6 @@ void __debugprintf (char flag, const char* file, int line,
    va_end (args);
    fflush (nullptr);
 }
-
 void set_debugflags (const char* flags) {
     debugflags = flags;
     assert (debugflags != nullptr);
@@ -94,7 +91,6 @@ static void eprint_signal (const char* kind, int signal) {
    const char* sigstr = strsignal (signal);
    if (sigstr != nullptr) fprintf (stderr, " %s", sigstr);
 }
-
 // Print the status returned from a subprocess.
 void eprint_status (const char* command, int status) {
    if (status == 0) return; 

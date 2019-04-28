@@ -1,4 +1,4 @@
-// $Id: auxlib.h,v 1.5 2017-10-11 14:33:45-07 - - $
+// $Id: auxlib.h,v 1.1 2019-04-27 23:27:58-07 - - $
 
 #ifndef __AUXLIB_H__
 #define __AUXLIB_H__
