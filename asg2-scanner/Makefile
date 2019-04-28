@@ -14,14 +14,14 @@ UTILBIN   = /afs/cats.ucsc.edu/courses/cmps104a-wm/bin/
 MODULES   = astree lyutils string_set emitter auxlib
 HDRSRC    = ${MODULES:=.h}
 CPPSRC    = ${MODULES:=.cpp} oc.cpp
-FLEXSRC   = scanner.l
+FLEXSRC   = lexer.l
 BISONSRC  = parser.y
 PARSEHDR  = yyparse.h
 LEXCPP    = yylex.cpp
 PARSECPP  = yyparse.cpp
 CGENS     = ${LEXCPP} ${PARSECPP}
 ALLGENS   = ${PARSEHDR} ${CGENS}
-EXECBIN   = zexprsm
+EXECBIN   = oc
 ALLCSRC   = ${CPPSRC} ${CGENS}
 OBJECTS   = ${ALLCSRC:.cpp=.o}
 LEXOUT    = yylex.output

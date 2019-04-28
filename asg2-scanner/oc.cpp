@@ -9,6 +9,8 @@ achaloya
 #include <string>
 using namespace std;
 
+/*
+#include <assert.h>
 #include <errno.h>
 #include <libgen.h>
 #include <fstream>
@@ -20,13 +22,30 @@ using namespace std;
 #include <unistd.h>
 #include <cassert>
 #include "string_set.h"
+*/
+
+#include <assert.h>
+#include <errno.h>
+#include <libgen.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+//#include "astree.h"
+//#include "auxlib.h"
+//#include "emitter.h"
+#include "lyutils.h"
+#include "string_set.h"
 
 const string CPP = "/usr/bin/cpp -nostdinc";
 constexpr size_t LINESIZE = 1024;
-const char* debugflags = "";
-bool alldebugflags = false;
+const char* filename;
+//const char* debugflags = "";
+//bool alldebugflags = false;
 
 // Generate debugging code.
+/*
 void __debugprintf (char flag, const char* file, int line,
                     const char* func, const char* format, ...);
 #define DEBUGF(FLAG,...) \
@@ -59,7 +78,7 @@ void set_debugflags (const char* flags) {
     DEBUGF ('x', "Debugflags = \"%s\", all = %d\n",
            debugflags, alldebugflags);
 }
-
+*/
 string stripsufx(string progname){
     int len = progname.length();
     string ocext = progname.substr(len-3, len);
@@ -79,6 +98,7 @@ void chomp (char* string, char delim) {
 }
 
 // Print the meaning of a signal.
+/*
 static void eprint_signal (const char* kind, int signal) {
    fprintf (stderr, ", %s %d", kind, signal);
    const char* sigstr = strsignal (signal);
@@ -106,6 +126,7 @@ void eprint_status (const char* command, int status) {
    }
    fprintf (stderr, "\n");
 }
+*/
 
 void cpplines (FILE* pipe) {
     int linenr = 1;
@@ -139,8 +160,6 @@ void cpplines (FILE* pipe) {
 }
 
 int main (int argc, char** argv) {
-    //int yy_flex_debug = 0;
-    //int yy_debug = 0;
     int exit_status = EXIT_SUCCESS;
     string dstring;
     int opt;
@@ -148,7 +167,7 @@ int main (int argc, char** argv) {
     while((opt = getopt(argc, argv, "ly@:D:")) != -1){
         switch(opt) {
             case 'l':
-                //yy_flex_debug = 1;
+                yy_flex_debug = 1;
                 break;
             case 'y':
                 //yy_debug = 1;
@@ -166,12 +185,12 @@ int main (int argc, char** argv) {
                 break;
         }
     }
-    const char* filename = basename(argv[optind]);
+    filename = basename(argv[optind]);
     string strname = stripsufx(filename) + ".str"; //.str string
     string command = CPP + " " + argv[optind];
 
     //printf ("command=\"%s\"\n", command.c_str());
-    yyin  = popen (command.c_str(), "r");
+    yyin = popen (command.c_str(), "r");
     
     if (yyin == nullptr) {
         exit_status = EXIT_FAILURE;
@@ -182,6 +201,15 @@ int main (int argc, char** argv) {
         int pclose_rc = pclose (yyin);
         eprint_status (command.c_str(), pclose_rc);
         if (pclose_rc != 0) exit_status = EXIT_FAILURE;
+
+        if (yy_flex_debug){
+            while (yylex() != YYEOF){
+                cpplines (yyin);
+      		    pclose_rc = pclose (yyin);
+                eprint_status (command.c_str(), pclose_rc);
+                if (pclose_rc != 0) exit_status = EXIT_FAILURE;
+            }
+        }
     }
 
     FILE * outfile = fopen(strname.c_str(), "w");
