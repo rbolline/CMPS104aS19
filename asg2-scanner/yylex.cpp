@@ -545,8 +545,8 @@ int yy_flex_debug = 1;
 
 static yyconst flex_int16_t yy_rule_linenum[17] =
     {   0,
-       31,   32,   33,   35,   36,   37,   38,   39,   40,   41,
-       42,   43,   44,   45,   47,   48
+       29,   30,   31,   33,   34,   35,   36,   37,   38,   39,
+       40,   41,   42,   43,   45,   46
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -557,9 +557,8 @@ static yyconst flex_int16_t yy_rule_linenum[17] =
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "lexer.l"
-/* $Id: lexer.l,v 1.9 2019-04-18 13:33:21-07 - - $ */
-#line 4 "lexer.l"
+#line 1 "scanner.l"
+#line 2 "scanner.l"
 
 #include "lyutils.h"
 
@@ -567,7 +566,7 @@ char *yytext;
 
 #define YY_NO_INPUT 1
 /*%option verbose*/
-#line 571 "yylex.cpp"
+#line 570 "yylex.cpp"
 
 #define INITIAL 0
 
@@ -807,10 +806,10 @@ YY_DECL
 	register int yy_act;
     
 /* %% [7.0] user's declarations go here */
-#line 29 "lexer.l"
+#line 27 "scanner.l"
 
 
-#line 814 "yylex.cpp"
+#line 813 "yylex.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -926,91 +925,91 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 31 "lexer.l"
+#line 29 "scanner.l"
 { lexer::include(); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 32 "lexer.l"
+#line 30 "scanner.l"
 { }
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 33 "lexer.l"
+#line 31 "scanner.l"
 { lexer::newline(); }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 35 "lexer.l"
+#line 33 "scanner.l"
 { return lexer::token (NUMBER); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 36 "lexer.l"
+#line 34 "scanner.l"
 { return lexer::token (IDENT); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 37 "lexer.l"
+#line 35 "scanner.l"
 { return lexer::token ('='); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 38 "lexer.l"
+#line 36 "scanner.l"
 { return lexer::token ('+'); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 39 "lexer.l"
+#line 37 "scanner.l"
 { return lexer::token ('-'); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 40 "lexer.l"
+#line 38 "scanner.l"
 { return lexer::token ('*'); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 41 "lexer.l"
+#line 39 "scanner.l"
 { return lexer::token ('/'); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 42 "lexer.l"
+#line 40 "scanner.l"
 { return lexer::token ('^'); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 43 "lexer.l"
+#line 41 "scanner.l"
 { return lexer::token ('('); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 44 "lexer.l"
+#line 42 "scanner.l"
 { return lexer::token (')'); }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 45 "lexer.l"
+#line 43 "scanner.l"
 { return lexer::token (';'); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 47 "lexer.l"
+#line 45 "scanner.l"
 { return lexer::badtoken (NUMBER); }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 48 "lexer.l"
+#line 46 "scanner.l"
 { lexer::badchar (*yytext); }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 50 "lexer.l"
+#line 48 "scanner.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 1014 "yylex.cpp"
+#line 1013 "yylex.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2091,7 +2090,7 @@ void yyfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 50 "lexer.l"
+#line 48 "scanner.l"
 
 
 

@@ -9,7 +9,7 @@ achaloya
 #include <string>
 using namespace std;
 
-/*
+
 #include <assert.h>
 #include <errno.h>
 #include <libgen.h>
@@ -22,21 +22,11 @@ using namespace std;
 #include <unistd.h>
 #include <cassert>
 #include "string_set.h"
-*/
-
-#include <assert.h>
-#include <errno.h>
-#include <libgen.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-//#include "astree.h"
-//#include "auxlib.h"
-//#include "emitter.h"
+#include "astree.h"
+#include "auxlib.h"
+#include "emitter.h"
 #include "lyutils.h"
-#include "string_set.h"
+
 
 const string CPP = "/usr/bin/cpp -nostdinc";
 constexpr size_t LINESIZE = 1024;
@@ -163,6 +153,8 @@ int main (int argc, char** argv) {
     int exit_status = EXIT_SUCCESS;
     string dstring;
     int opt;
+    yy_flex_debug = 0;
+    //int yy_debug = 0;
 
     while((opt = getopt(argc, argv, "ly@:D:")) != -1){
         switch(opt) {
@@ -205,13 +197,12 @@ int main (int argc, char** argv) {
         if (yy_flex_debug){
             while (yylex() != YYEOF){
                 cpplines (yyin);
-      		    pclose_rc = pclose (yyin);
+                pclose_rc = pclose(yyin);
                 eprint_status (command.c_str(), pclose_rc);
                 if (pclose_rc != 0) exit_status = EXIT_FAILURE;
             }
         }
     }
-
     FILE * outfile = fopen(strname.c_str(), "w");
     string_set::dump(outfile); 
 

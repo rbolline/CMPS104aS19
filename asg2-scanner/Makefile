@@ -14,7 +14,7 @@ UTILBIN   = /afs/cats.ucsc.edu/courses/cmps104a-wm/bin/
 MODULES   = astree lyutils string_set emitter auxlib
 HDRSRC    = ${MODULES:=.h}
 CPPSRC    = ${MODULES:=.cpp} oc.cpp
-FLEXSRC   = lexer.l
+FLEXSRC   = scanner.l
 BISONSRC  = parser.y
 PARSEHDR  = yyparse.h
 LEXCPP    = yylex.cpp
@@ -35,6 +35,8 @@ EXECTEST  = ${EXECBIN} -ly
 LISTSRC   = ${ALLSRC} ${DEPSFILE} ${PARSEHDR}
 
 all : ${EXECBIN}
+
+
 
 ${EXECBIN} : ${OBJECTS}
 	${GPPWARN} -o${EXECBIN} ${OBJECTS}
@@ -73,7 +75,7 @@ clean :
 	      ${patsubst %, ${test}.%, out err log}}
 
 spotless : clean
-	- rm ${EXECBIN} List.*.ps List.*.pdf
+	- rm ${EXECBIN}
 
 deps : ${ALLCSRC}
 	@ echo "# ${DEPSFILE} created `date` by ${MAKE}" >${DEPSFILE}
@@ -94,6 +96,7 @@ tests : ${EXECBIN}
 again :
 	gmake --no-print-directory spotless deps ci all lis
 	
+cycle : spotless all	
 ifeq "${NEEDINCL}" ""
 include ${DEPSFILE}
 endif

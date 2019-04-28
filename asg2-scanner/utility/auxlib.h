@@ -1,0 +1,1 @@
+e08.expr-smc/auxlib.h
