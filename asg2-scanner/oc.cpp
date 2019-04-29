@@ -199,8 +199,8 @@ int main (int argc, char** argv) {
             }
         }
     }
-    FILE * outfile = fopen(strname.c_str(), "w");
-    string_set::dump(outfile); 
+    FILE * strfile = fopen(strname.c_str(), "w");
+    string_set::dump(strfile); 
 
     return exit_status;
 }

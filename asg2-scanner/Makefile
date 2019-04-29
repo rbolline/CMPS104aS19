@@ -26,7 +26,7 @@ ALLCSRC   = ${CPPSRC} ${CGENS}
 OBJECTS   = ${ALLCSRC:.cpp=.o}
 LEXOUT    = yylex.output
 PARSEOUT  = yyparse.output
-REPORTS   = ${LEXOUT} ${PARSEOUT}
+REPORTS   = ${PARSEOUT} #${LEXOUT}
 MODSRC    = ${foreach MOD, ${MODULES}, ${MOD}.h ${MOD}.cpp}
 MISCSRC   = ${filter-out ${MODSRC}, ${HDRSRC} ${CPPSRC}}
 ALLSRC    = README ${FLEXSRC} ${BISONSRC} ${MODSRC} ${MISCSRC} Makefile
@@ -71,11 +71,10 @@ lis : ${LISTSRC} tests
 
 clean :
 	- rm ${OBJECTS} ${ALLGENS} ${REPORTS} ${DEPSFILE} core
-	- rm ${foreach test, ${TESTINS:.in=}, \
-	      ${patsubst %, ${test}.%, out err log}}
+	
 
 spotless : clean
-	- rm ${EXECBIN}
+	- rm ${EXECBIN} *.str *.tok
 
 deps : ${ALLCSRC}
 	@ echo "# ${DEPSFILE} created `date` by ${MAKE}" >${DEPSFILE}
@@ -95,8 +94,7 @@ tests : ${EXECBIN}
 
 again :
 	gmake --no-print-directory spotless deps ci all lis
-	
-cycle : spotless all	
+
 ifeq "${NEEDINCL}" ""
 include ${DEPSFILE}
 endif
