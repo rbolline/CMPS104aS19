@@ -16,6 +16,8 @@ vector<string> lexer::filenames;
 
 astree* parser::root = nullptr;
 
+extern FILE * tokfile;
+
 const string* lexer::filename (int filenr) {
    return &lexer::filenames.at(filenr);
 }
@@ -40,6 +42,7 @@ void lexer::advance() {
 void lexer::newline() {
    ++lexer::lloc.linenr;
    lexer::lloc.offset = 0;
+   fprintf (tokfile, "\n");
 }
 
 void lexer::badchar (unsigned char bad) {
@@ -66,10 +69,13 @@ void lexer::include() {
       lexer::lloc.linenr = linenr - 1;
       lexer::newfilename (filename);
    }
+   fprintf (tokfile, yytext);
 }
 
 int lexer::token (int symbol) {
    yylval = new astree (symbol, lexer::lloc, yytext);
+   fprintf (tokfile, "    ");
+   astree::print (tokfile, yylval, 0);
    return symbol;
 }
 
@@ -82,4 +88,3 @@ void yyerror (const char* message) {
    assert (not lexer::filenames.empty());
    errllocprintf (lexer::lloc, "%s\n", message);
 }
-

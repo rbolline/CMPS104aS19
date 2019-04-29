@@ -18,13 +18,14 @@
 
 LETTER          [A-Za-z_]
 DIGIT           [0-9]
-MANTISSA        ({DIGIT}+\.?{DIGIT}*|\.{DIGIT}+)
-EXPONENT        ([Ee][+-]?{DIGIT}+)
-NUMBER          ({MANTISSA}{EXPONENT}?)
+MANTISSA        [({DIGIT}+\.?{DIGIT}*|\.{DIGIT}+)]
+EXPONENT        [([Ee][+-]?{DIGIT}+)]
+NUMBER          [({MANTISSA}{EXPONENT}?)]
 NOTNUMBER       ({MANTISSA}[Ee][+-]?)
-IDENT           ({LETTER}({LETTER}|{DIGIT})*)
+IDENT           [({LETTER}({LETTER}|{DIGIT})*)]
 CHARCON         (’([^\\’\n]|\\[\\’"0nt])’)
 STRINGCON       (\"([^\\"\n]|\\[\\’"0nt])*\")
+HEX             ([\x]{NUMBER})
 
 %%
 
@@ -32,21 +33,22 @@ STRINGCON       (\"([^\\"\n]|\\[\\’"0nt])*\")
 [ \t]+          { }
 \n              { lexer::newline(); }
 
+
 {CHARCON}       { return lexer::token (TOK_CHARCON); }
 {STRINGCON}     { return lexer::token (TOK_STRINGCON); }
-"if"            { return lexer::token (TOK_IF); }
-"else"          { return lexer::token (TOK_ELSE); }
-"while"         { return lexer::token (TOK_WHILE); }
-"return"        { return lexer::token (TOK_RETURN); }
-"alloc"         { return lexer::token (TOK_ALLOC); }
-"nullptr"       { return lexer::token (TOK_NULLPTR); }
-"not"           { return lexer::token (TOK_NOT); }
-"int"           { return lexer::token (TOK_INT); }
-"string"        { return lexer::token (TOK_STRING); }
-"struct"        { return lexer::token (TOK_STRUCT); }
-"array"         { return lexer::token (TOK_ARRAY); }
-"ptr"           { return lexer::token (TOK_PTR); }
-"void"          { return lexer::token (TOK_VOID); }
+("if")            { return lexer::token (TOK_IF); }
+("else")          { return lexer::token (TOK_ELSE); }
+("while")         { return lexer::token (TOK_WHILE); }
+("return")        { return lexer::token (TOK_RETURN); }
+("alloc")         { return lexer::token (TOK_ALLOC); }
+("nullptr")       { return lexer::token (TOK_NULLPTR); }
+("not")           { return lexer::token (TOK_NOT); }
+("int")           { return lexer::token (TOK_INT); }
+("string")        { return lexer::token (TOK_STRING); }
+("struct")        { return lexer::token (TOK_STRUCT); }
+("array")         { return lexer::token (TOK_ARRAY); }
+("ptr")           { return lexer::token (TOK_PTR); }
+("void")          { return lexer::token (TOK_VOID); }
 {NUMBER}        { return lexer::token (NUMBER); }
 {IDENT}         { return lexer::token (IDENT); }
 "="             { return lexer::token ('='); }
