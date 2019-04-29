@@ -7,6 +7,7 @@ achaloya
 
 #include<iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 
@@ -20,17 +21,19 @@ using namespace std;
 #include <string.h> 
 #include <wait.h>
 #include <unistd.h>
-#include <cassert>
+//#include <cassert>
+
 #include "string_set.h"
 #include "astree.h"
 #include "auxlib.h"
-#include "emitter.h"
+//#include "emitter.h"
 #include "lyutils.h"
 
 
 const string CPP = "/usr/bin/cpp -nostdinc";
 constexpr size_t LINESIZE = 1024;
 const char* filename;
+FILE * tokfile; 
 //const char* debugflags = "";
 //bool alldebugflags = false;
 
@@ -113,7 +116,6 @@ void eprint_status (const char* command, int status) {
    fprintf (stderr, "\n");
 }
 */
-
 void cpplines (FILE* pipe) {
     int linenr = 1;
     for (;;) {
@@ -175,28 +177,32 @@ int main (int argc, char** argv) {
     }
     filename = basename(argv[optind]);
     string strname = stripsufx(filename) + ".str"; //.str string
+    string tokname = stripsufx(filename) + ".tok";
     string command = CPP + " " + argv[optind];
+
+    tokfile = fopen(tokname.c_str(), "w");
 
     //printf ("command=\"%s\"\n", command.c_str());
     yyin = popen (command.c_str(), "r");
-    
+
     if (yyin == nullptr) {
         exit_status = EXIT_FAILURE;
         fprintf (stderr, "%s: %s: %s\n",
                 "oc", command.c_str(), strerror (errno));
     }else {
-        cpplines (yyin);
-        int pclose_rc = pclose (yyin);
-        eprint_status (command.c_str(), pclose_rc);
-        if (pclose_rc != 0) exit_status = EXIT_FAILURE;
-
         if (yy_flex_debug){
             while (yylex() != YYEOF){
                 cpplines (yyin);
-                pclose_rc = pclose(yyin);
+                int pclose_rc = pclose(yyin);
                 eprint_status (command.c_str(), pclose_rc);
                 if (pclose_rc != 0) exit_status = EXIT_FAILURE;
             }
+        }
+        else{
+        	cpplines (yyin);
+            int pclose_rc = pclose (yyin);
+            eprint_status (command.c_str(), pclose_rc);
+            if (pclose_rc != 0) exit_status = EXIT_FAILURE;
         }
     }
     FILE * outfile = fopen(strname.c_str(), "w");
