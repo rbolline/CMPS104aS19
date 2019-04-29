@@ -190,19 +190,15 @@ int main (int argc, char** argv) {
         fprintf (stderr, "%s: %s: %s\n",
                 "oc", command.c_str(), strerror (errno));
     }else {
-        if (yy_flex_debug){
-            while (yylex() != YYEOF){
-                cpplines (yyin);
-                int pclose_rc = pclose(yyin);
-                eprint_status (command.c_str(), pclose_rc);
-                if (pclose_rc != 0) exit_status = EXIT_FAILURE;
-            }
-        }
-        else{
-        	cpplines (yyin);
-            int pclose_rc = pclose (yyin);
+    	while (yylex() != YYEOF){
+            cpplines (yyin);
+            int pclose_rc = pclose(yyin);
             eprint_status (command.c_str(), pclose_rc);
             if (pclose_rc != 0) exit_status = EXIT_FAILURE;
+        }
+        if (yy_flex_debug){
+            fprintf (stderr, "-- popen (%s), fileno(yyin) = %d\n",
+                command.c_str(), fileno (yyin));
         }
     }
     FILE * outfile = fopen(strname.c_str(), "w");
