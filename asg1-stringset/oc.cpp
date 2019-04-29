@@ -108,7 +108,7 @@ void eprint_status (const char* command, int status) {
    fprintf (stderr, "\n");
 }
 
-void cpplines (FILE* pipe) {
+void cpplines (FILE* pipe, const char* filename) {
     int linenr = 1;
     for (;;) {
         char buffer[LINESIZE];
@@ -179,7 +179,7 @@ int main (int argc, char** argv) {
         fprintf (stderr, "%s: %s: %s\n",
                 "oc", command.c_str(), strerror (errno));
     }else {
-        cpplines (pipe);
+        cpplines (pipe, filename);
         int pclose_rc = pclose (pipe);
         eprint_status (command.c_str(), pclose_rc);
         if (pclose_rc != 0) exit_status = EXIT_FAILURE;
