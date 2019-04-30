@@ -1,4 +1,8 @@
 # $Id: Makefile,v 1.40 2019-04-18 13:38:03-07 - - $
+#Rohith Bollineni
+#rbolline
+#Ani Chaloyan
+#achaloya
 
 DEPSFILE  = Makefile.deps
 NOINCLUDE = ci clean spotless
@@ -11,7 +15,7 @@ MKDEPS    = g++ -std=gnu++17 -MM
 GRIND     = valgrind --leak-check=full --show-reachable=yes
 UTILBIN   = /afs/cats.ucsc.edu/courses/cmps104a-wm/bin/
 
-MODULES   = astree lyutils string_set auxlib
+MODULES   = astree lyutils string_set auxlib emitter
 HDRSRC    = ${MODULES:=.h}
 CPPSRC    = ${MODULES:=.cpp} oc.cpp
 FLEXSRC   = scanner.l

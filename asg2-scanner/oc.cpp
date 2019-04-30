@@ -190,17 +190,15 @@ int main (int argc, char** argv) {
         fprintf (stderr, "%s: %s: %s\n",
                 "oc", command.c_str(), strerror (errno));
     }else {
-    	//int x = yylex();
-    	yylex();
-
-    	cpplines (yyin);
+        //int x = yylex();
+        yylex();
+        cpplines (yyin);
         int pclose_rc = pclose(yyin);
         eprint_status (command.c_str(), pclose_rc);
         if (pclose_rc != 0) exit_status = EXIT_FAILURE;
         
-    	while (!YYEOF){
-
-            yylex();
+        while (!YYEOF && yylex() != YYEOF){
+            
             //printf("%d\n", x);
         }
         if (yy_flex_debug){
@@ -211,8 +209,8 @@ int main (int argc, char** argv) {
 
     yylex_destroy();
 
-    FILE * outfile = fopen(strname.c_str(), "w");
-    string_set::dump(outfile); 
+    FILE * strfile = fopen(strname.c_str(), "w");
+    string_set::dump(strfile); 
 
     return exit_status;
 }
