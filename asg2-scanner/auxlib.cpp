@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <wait.h>
+#include <iostream>
 
 #include "auxlib.h"
 
@@ -47,15 +48,15 @@ void eprint_status (const char* command, int status) {
 
 
 void veprintf (const char* format, va_list args) {
-   assert (exec::execname.size() != 0);
-   assert (format != nullptr);
-   fflush (nullptr);
-   if (strstr (format, "%:") == format) {
-      fprintf (stderr, "%s: ", exec::execname.c_str());
-      format += 2;
-   }
-   vfprintf (stderr, format, args);
-   fflush (nullptr);
+        assert (exec::execname.size() != 0);
+        assert (format != nullptr);
+        fflush (nullptr);
+        if (strstr (format, "%:") == format) {
+        fprintf (stderr, "%s: ", exec::execname.c_str());
+        format += 2;
+        }
+        vfprintf (stderr, format, args);
+        fflush (nullptr);
 }
 
 void eprintf (const char* format, ...) {

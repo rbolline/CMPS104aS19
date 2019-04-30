@@ -14,7 +14,7 @@
 %option nounput
 %option noyywrap
 %option warn
-/*%option verbose*/
+
 
 LETTER          [A-Za-z_]
 DIGIT           [0-9]
