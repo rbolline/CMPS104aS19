@@ -26,15 +26,14 @@ using namespace std;
 #include "string_set.h"
 #include "astree.h"
 #include "auxlib.h"
-#include "emitter.h"
+//#include "emitter.h"
 #include "lyutils.h"
 
 
 const string CPP = "/usr/bin/cpp -nostdinc";
 constexpr size_t LINESIZE = 1024;
 const char* filename;
-FILE * strfile;
-FILE * tokfile;
+FILE * tokfile; 
 //const char* debugflags = "";
 //bool alldebugflags = false;
 
@@ -124,10 +123,13 @@ void cpplines (FILE* pipe) {
         const char* fgets_rc = fgets (buffer, LINESIZE, pipe);
         if (fgets_rc == nullptr) break;
         chomp (buffer, '\n');
+        printf ("%s:line %d: [%s]\n", filename, linenr, buffer);
         char inputname[LINESIZE];
         int sscanf_rc = sscanf (buffer, "# %d \"%[^\"]\"",
                                 &linenr, inputname);
         if (sscanf_rc == 2) {
+            printf ("DIRECTIVE: line %d file \"%s\"\n",
+                     linenr, inputname);
             continue;
         }
         char* savepos = nullptr;
@@ -136,7 +138,10 @@ void cpplines (FILE* pipe) {
             char* token = strtok_r (bufptr, " \t\n", &savepos);
             bufptr = nullptr;
             if (token == nullptr) break;
+            printf ("token %d.%d: [%s]\n",
+                    linenr, tokenct, token);
             string_set::intern(token); 
+            
         }
         ++linenr;
     }
@@ -147,7 +152,7 @@ int main (int argc, char** argv) {
     string dstring;
     int opt;
     yy_flex_debug = 0;
-    //yy_debug = 0;
+    //int yy_debug = 0;
 
     while((opt = getopt(argc, argv, "ly@:D:")) != -1){
         switch(opt) {
@@ -171,58 +176,44 @@ int main (int argc, char** argv) {
         }
     }
     filename = basename(argv[optind]);
-    exec::execname = basename(argv[0]);
-    string strname = stripsufx(filename) + ".str";
+    string strname = stripsufx(filename) + ".str"; //.str string
     string tokname = stripsufx(filename) + ".tok";
+    string command = CPP + " " + argv[optind];
 
-    strfile = fopen(strname.c_str(), "w");
     tokfile = fopen(tokname.c_str(), "w");
 
-    string command = CPP + " " + argv[optind];
     //printf ("command=\"%s\"\n", command.c_str());
-
     yyin = popen (command.c_str(), "r");
+
     if (yyin == nullptr) {
         exit_status = EXIT_FAILURE;
         fprintf (stderr, "%s: %s: %s\n",
                 "oc", command.c_str(), strerror (errno));
     }else {
-        cpplines(yyin);
-        string_set::dump(strfile);
+    	//int x = yylex();
+    	yylex();
+
+    	cpplines (yyin);
         int pclose_rc = pclose(yyin);
+        eprint_status (command.c_str(), pclose_rc);
+        if (pclose_rc != 0) exit_status = EXIT_FAILURE;
         
-        yyin = popen (command.c_str(), "r");
-        while (yylex() != YYEOF){
-            cpplines (yyin);
-            pclose_rc = pclose(yyin);
-            std::cout << "RGSERGSRT" << "\n";
+    	while (!YYEOF){
+
+            yylex();
+            //printf("%d\n", x);
         }
-        
-        /*
         if (yy_flex_debug){
             fprintf (stderr, "-- popen (%s), fileno(yyin) = %d\n",
                 command.c_str(), fileno (yyin));
-        }*/
-
-        //lexer::newfilename (command);
+        }
     }
-    
 
-   /* int parse_rc = yyparse();
-    int pclose_rc = pclose (yyin); */
-
-    //eprint_status (command.c_str(), pclose_rc);
-
-    /*
-    if (pclose_rc != 0) exec::exit_status = EXIT_FAILURE;
     yylex_destroy();
-    if (parse_rc) {
-        fprintf (stderr, "parse failed (%d)\n", parse_rc);
-    }else {
-        astree::print (tokfile, parser::root);
-        //emit_sm_code (parser::root);
-        delete parser::root;
-    }
-    */
+
+    FILE * outfile = fopen(strname.c_str(), "w");
+    string_set::dump(outfile); 
+
     return exit_status;
 }
+

@@ -14,15 +14,15 @@
 %option nounput
 %option noyywrap
 %option warn
-
+/*%option verbose*/
 
 LETTER          [A-Za-z_]
 DIGIT           [0-9]
-MANTISSA        [({DIGIT}+\.?{DIGIT}*|\.{DIGIT}+)]
-EXPONENT        [([Ee][+-]?{DIGIT}+)]
-NUMBER          [({MANTISSA}{EXPONENT}?)]
+MANTISSA        ({DIGIT}+\.?{DIGIT}*|\.{DIGIT}+)
+EXPONENT        ([Ee][+-]?{DIGIT}+)
+NUMBER          ({MANTISSA}{EXPONENT}?)
 NOTNUMBER       ({MANTISSA}[Ee][+-]?)
-IDENT           [({LETTER}({LETTER}|{DIGIT})*)]
+IDENT           ({LETTER}({LETTER}|{DIGIT})*)
 CHARCON         (’([^\\’\n]|\\[\\’"0nt])’)
 STRINGCON       (\"([^\\"\n]|\\[\\’"0nt])*\")
 HEX             ([\x]{NUMBER})
@@ -51,6 +51,7 @@ HEX             ([\x]{NUMBER})
 ("void")          { return lexer::token (TOK_VOID); }
 {NUMBER}        { return lexer::token (NUMBER); }
 {IDENT}         { return lexer::token (IDENT); }
+","             { return lexer::token (','); }
 "="             { return lexer::token ('='); }
 "+"             { return lexer::token ('+'); }
 "-"             { return lexer::token ('-'); }
