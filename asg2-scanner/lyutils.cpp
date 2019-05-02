@@ -1,10 +1,5 @@
 // $Id: lyutils.cpp,v 1.1 2019-04-27 23:27:58-07 - - $
-/*
-Rohith Bollineni
-rbolline
-Ani Chaloyan
-achaloya
-*/
+
 #include <assert.h>
 #include <ctype.h>
 #include <stdio.h>
@@ -78,9 +73,19 @@ void lexer::include() {
 }
 
 int lexer::token (int symbol) {
+   //print offset
+   int offset = lexer::lloc.offset;
+   while (offset >= 0){
+       fprintf (tokfile, " ");
+       offset--;
+   }
+   //print line number
+   fprintf (tokfile, "%d ", lloc.linenr);
+   
    yylval = new astree (symbol, lexer::lloc, yytext);
-   fprintf (tokfile, "    ");
-   astree::print (tokfile, yylval, 0);
+   
+   //fprintf (tokfile, ("%(lexer::lloc.offset)d", lexer::lloc.linenr));
+   //astree::print (tokfile, yylval, 0);
    return symbol;
 }
 

@@ -1,4 +1,3 @@
-
 /*
 Rohith Bollineni
 rbolline
@@ -32,8 +31,6 @@ NUMBER          ({MANTISSA}{EXPONENT}?)
 NOTNUMBER       ({MANTISSA}[Ee][+-]?)
 IDENT           ({LETTER}({LETTER}|{DIGIT})*)
 CHARCON         (’([^\\’\n]|\\[\\’"0nt])’)
-STRINGCON       (\"([^\\"\n]|\\[\\’"0nt])*\")
-HEX             ([\x]{NUMBER})
 
 %%
 
@@ -41,9 +38,10 @@ HEX             ([\x]{NUMBER})
 [ \t]+          { }
 \n              { lexer::newline(); }
 
-
-{CHARCON}       { return lexer::token (TOK_CHARCON); }
-{STRINGCON}     { return lexer::token (TOK_STRINGCON); }
+\"                { }
+\!                { }
+\\                { }
+CHARCON           { return lexer::token (TOK_CHARCON); }
 ("if")            { return lexer::token (TOK_IF); }
 ("else")          { return lexer::token (TOK_ELSE); }
 ("while")         { return lexer::token (TOK_WHILE); }
@@ -73,7 +71,6 @@ HEX             ([\x]{NUMBER})
 "{"             { return lexer::token ('{'); }
 "}"             { return lexer::token ('}'); }
 ";"             { return lexer::token (';'); }
-"'"             { return lexer::token (','); }
 "%"             { return lexer::token ('%'); }
 "=="            { return lexer::token (TOK_EQ); }
 "!="            { return lexer::token (TOK_NE); }
@@ -83,8 +80,8 @@ HEX             ([\x]{NUMBER})
 ">="            { return lexer::token (TOK_GE); }
 "->"            { return lexer::token (TOK_ARROW); }
 
+
 {NOTNUMBER}     { return lexer::badtoken (NUMBER); }
 .               { lexer::badchar (*yytext); }
 
 %%
-

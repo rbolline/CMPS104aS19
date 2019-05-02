@@ -190,17 +190,27 @@ int main (int argc, char** argv) {
         fprintf (stderr, "%s: %s: %s\n",
                 "oc", command.c_str(), strerror (errno));
     }else {
-        //int x = yylex();
-        yylex();
+        
+        if (!EOF){
+        	yyparse();
+        	printf("yy parse successful");
+        	int pclose_rc = pclose (yyin);
+        	eprint_status (command.c_str(), pclose_rc);
+        	if (pclose_rc != 0) exec::exit_status = EXIT_FAILURE;
+        }
+        /*
         cpplines (yyin);
+        printf ("cpp doesnt fail");
         int pclose_rc = pclose(yyin);
+        //yylex_destroy();
         eprint_status (command.c_str(), pclose_rc);
         if (pclose_rc != 0) exit_status = EXIT_FAILURE;
-        
-        while (!YYEOF && yylex() != YYEOF){
-            
+		*/
+        while (yylex() != YYEOF){
+       
             //printf("%d\n", x);
         }
+       
         if (yy_flex_debug){
             fprintf (stderr, "-- popen (%s), fileno(yyin) = %d\n",
                 command.c_str(), fileno (yyin));
@@ -211,7 +221,7 @@ int main (int argc, char** argv) {
 
     FILE * strfile = fopen(strname.c_str(), "w");
     string_set::dump(strfile); 
-
+        
     return exit_status;
 }
 
