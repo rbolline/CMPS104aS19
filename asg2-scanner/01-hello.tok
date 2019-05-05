@@ -1,0 +1,90 @@
+# 1 "01-hello.oc"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "01-hello.oc"
+
+
+
+# 1 "oclib.h" 1
+# 22 "oclib.h"
+   6  22.1    258  TOK_VOID     void
+   6  22.6    286  IDENT        fail
+   6  22.11    40  '('          (
+   6  22.12   260  TOK_STRING   string
+   6  22.19   286  IDENT        expr
+   6  22.23    44  ','          ,
+   6  22.25   260  TOK_STRING   string
+   6  22.32   286  IDENT        file
+   6  22.36    44  ','          ,
+   6  22.38   259  TOK_INT      int
+   6  22.42   286  IDENT        line
+   6  22.46    41  ')'          )
+   6  22.47    59  ';'          ;
+
+
+   6  24.1    258  TOK_VOID     void
+   6  24.6    286  IDENT        putchr
+   6  24.13    40  '('          (
+   6  24.14   259  TOK_INT      int
+   6  24.18   286  IDENT        chr
+   6  24.21    41  ')'          )
+   6  24.22    59  ';'          ;
+
+   6  25.1    258  TOK_VOID     void
+   6  25.6    286  IDENT        putint
+   6  25.13    40  '('          (
+   6  25.14   259  TOK_INT      int
+   6  25.18   286  IDENT        num
+   6  25.21    41  ')'          )
+   6  25.22    59  ';'          ;
+
+   6  26.1    258  TOK_VOID     void
+   6  26.6    286  IDENT        putstr
+   6  26.13    40  '('          (
+   6  26.14   260  TOK_STRING   string
+   6  26.21   286  IDENT        str
+   6  26.24    41  ')'          )
+   6  26.25    59  ';'          ;
+
+
+   6  28.1    259  TOK_INT      int
+   6  28.5    286  IDENT        getchr
+   6  28.11    40  '('          (
+   6  28.12    41  ')'          )
+   6  28.13    59  ';'          ;
+
+   6  29.1    260  TOK_STRING   string
+   6  29.8    286  IDENT        getstr
+   6  29.14    40  '('          (
+   6  29.15    41  ')'          )
+   6  29.16    59  ';'          ;
+
+   6  30.1    260  TOK_STRING   string
+   6  30.8    286  IDENT        getln
+   6  30.13    40  '('          (
+   6  30.14    41  ')'          )
+   6  30.15    59  ';'          ;
+
+# 5 "01-hello.oc" 2
+
+   7   6.1    259  TOK_INT      int
+   7   6.5    286  IDENT        main
+   7   6.9     40  '('          (
+   7   6.10    41  ')'          )
+   7   6.12   123  '{'          {
+
+   7   7.4    286  IDENT        putstr
+   7   7.11    40  '('          (
+   7   7.13   286  IDENT        Hello
+   7   7.18    44  ','          ,
+   7   7.20   286  IDENT        world
+   7   7.27   286  IDENT        n
+   7   7.29    41  ')'          )
+   7   7.30    59  ';'          ;
+
+   7   8.4    264  TOK_RETURN   return
+   7   8.11   287  NUMBER       0
+   7   8.12    59  ';'          ;
+
+   7   9.1    125  '}'          }
+

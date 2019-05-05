@@ -13,6 +13,7 @@ bool lexer::interactive = true;
 location lexer::lloc = {0, 1, 0};
 size_t lexer::last_yyleng = 0;
 vector<string> lexer::filenames;
+int directivecount = 0;
 
 astree* parser::root = nullptr;
 
@@ -68,22 +69,25 @@ void lexer::include() {
       }
       lexer::lloc.linenr = linenr - 1;
       lexer::newfilename (filename);
+      directivecount++;
    }
    fprintf (tokfile, yytext);
 }
 
 int lexer::token (int symbol) {
-   //print offset
    int offset = lexer::lloc.offset;
-   while (offset >= 0){
-       fprintf (tokfile, " ");
-       offset--;
-   }
-   //print line number
-   fprintf (tokfile, "%d ", lloc.linenr);
+   int llnum = lloc.linenr;
+   
    
    yylval = new astree (symbol, lexer::lloc, yytext);
-   
+   fprintf (tokfile, "   %d  %2d.%-2d  %4d  %-12s %-s\n", 
+            directivecount,
+            llnum,
+            offset,
+            symbol,
+            parser::get_tname(symbol),
+            yytext);
+
    //fprintf (tokfile, ("%(lexer::lloc.offset)d", lexer::lloc.linenr));
    //astree::print (tokfile, yylval, 0);
    return symbol;

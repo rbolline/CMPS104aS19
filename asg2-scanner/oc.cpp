@@ -192,24 +192,13 @@ int main (int argc, char** argv) {
     }else {
         
         if (!EOF){
-        	yyparse();
-        	printf("yy parse successful");
-        	int pclose_rc = pclose (yyin);
-        	eprint_status (command.c_str(), pclose_rc);
-        	if (pclose_rc != 0) exec::exit_status = EXIT_FAILURE;
+            yyparse();
+            printf("yy parse successful");
+            int pclose_rc = pclose (yyin);
+            eprint_status (command.c_str(), pclose_rc);
+            if (pclose_rc != 0) exec::exit_status = EXIT_FAILURE;
         }
-        /*
-        cpplines (yyin);
-        printf ("cpp doesnt fail");
-        int pclose_rc = pclose(yyin);
-        //yylex_destroy();
-        eprint_status (command.c_str(), pclose_rc);
-        if (pclose_rc != 0) exit_status = EXIT_FAILURE;
-		*/
-        while (yylex() != YYEOF){
-       
-            //printf("%d\n", x);
-        }
+        while (yylex() != YYEOF){}
        
         if (yy_flex_debug){
             fprintf (stderr, "-- popen (%s), fileno(yyin) = %d\n",
