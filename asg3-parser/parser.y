@@ -60,12 +60,61 @@ program : program structdef     { $$ = $1->adopt ($2); }
         |                       { $$ = parser::root; } 
         ;
 
-structdef : 'struct' TOK_IDENT '{' typeident '}' ';' 
-                                { destroy($3, $5); destroy($6); 
-                                  $$ = $1->adopt ($2, $4) }
+structdef : TOK_STRUCT TOK_IDENT '{' typeident '}' ';' 
+{ destroy($3, $5); destroy($6); $$ = $1->adopt ($2, $4); }
 
-typeident : /* empty */                { $$ = nullptr; }
-        | type TOK_IDENT ';' typeident {}
+typeident : /* empty */                 { $$ = nullptr; }
+        | type TOK_IDENT ';' typeident  {}
+        | type TOK_IDENT typeident      {}
+        | ',' type TOK_IDENT typeident  {}
+        ;
+
+type    : plaintype
+        | TOK_ARRAY '<' plaintype '>'
+        ;
+
+plaintype : TOK_VOID                            {}
+        | TOK_INT                               {}
+        | TOK_STRING                            {}
+        | TOK_PTR '<' TOK_STRUCT TOK_IDENT '>'  {}
+        ;
+
+function : type TOK_IDENT '(' typeident ')' block {}
+         ;
+
+block   : '{' optstmt '}'       {}
+        | ';'                   {}
+        ;
+
+optstmt : /* empty */           {}
+        | statement optstmt     {}
+        ;
+
+statement : vardecl             {}
+        | block                 {}
+        | while                 {}
+        | ifelse                {}
+        | return                {}
+        | expr ';'              {}
+        ;
+
+vardecl : type TOK_IDENT optexpr ';'    {}
+        ;
+
+optexpr : /* empty */           {}
+        | '=' expr              {}
+        | TOK_ELSE statement    {}
+        | expr optexpr          {}
+        | ',' expr optexpr      {}
+        ;
+
+while   : TOK_WHILE '(' expr ')' statement      {}
+        ;
+
+ifelse  : TOK_IF '(' expr ')' statement optexpr {}
+        ;
+
+return  : TOK_RETURN optexpr    {}
         ;
 
 expr    : expr '=' expr         { $$ = $2->adopt ($1, $3); }
@@ -76,10 +125,21 @@ expr    : expr '=' expr         { $$ = $2->adopt ($1, $3); }
         | expr '^' expr         { $$ = $2->adopt ($1, $3); }
         | '+' expr %prec POS    { $$ = $1->adopt_sym ($2, POS); }
         | '-' expr %prec NEG    { $$ = $1->adopt_sym ($2, NEG); }
+        | allocator             {}
+        | call                  {}
         | '(' expr ')'          { destroy ($1, $3); $$ = $2; }
         | TOK_IDENT             { $$ = $1; }
         | TOK_NUMBER            { $$ = $1; }
         ;
+
+allocator : TOK_ALLOC 
+        '<' TOK_STRING '>' '(' expr ')'                  {}
+        | TOK_ALLOC 
+        '<' TOK_STRUCT TOK_IDENT '>' '(' ')'             {}
+        | TOK_ALLOC 
+        '<' TOK_ARRAY '<' plaintype '>' '>' '(' expr ')' {}
+
+call    : TOK_IDENT '(' 
 
 %%
 

@@ -80,7 +80,7 @@ int lexer::token (int symbol) {
    
    
    yylval = new astree (symbol, lexer::lloc, yytext);
-   fprintf (tokfile, "   %d  %2d.%-2d  %4d  %-12s %-s\n", 
+   fprintf (tokfile, "   %d  %2d.%-02d  %4d  %-12s %-s\n", 
             directivecount,
             llnum,
             offset,
