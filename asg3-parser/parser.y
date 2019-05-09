@@ -41,7 +41,7 @@ achaloya
 %token ROOT IDENT NUMBER STRINGCON CHARCON
 
 %right  '=' 
-%left   '==' '!=' '<' '<=' '>' '>=' 
+
 %left   '+' '-'
 %left   '*' '/' 
 %right  '^'
@@ -139,7 +139,18 @@ allocator : TOK_ALLOC
         | TOK_ALLOC 
         '<' TOK_ARRAY '<' plaintype '>' '>' '(' expr ')' {}
 
-call    : TOK_IDENT '(' 
+call    : TOK_IDENT '(' optexpr ')'             {}
+        ;
+
+variable : TOK_IDENT            {}
+        | expr '[' expr ']'     {}
+        | expr '->' TOK_IDENT   {}
+        ; 
+
+constant : TOK_INTCON           {}
+        | TOK_CHARCON           {}
+        | TOK_STRINGCON         {}
+        | TOK_NULLPTR           {}
 
 %%
 

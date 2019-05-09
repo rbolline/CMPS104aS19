@@ -13,7 +13,7 @@ achaloya
 
 %}
 
-%option 8bit
+%option 8bit 
 %option debug
 %option nobackup
 %option nodefault
