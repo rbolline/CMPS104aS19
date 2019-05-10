@@ -39,6 +39,7 @@ achaloya
 %token TOK_IDENT TOK_INTCON TOK_CHARCON TOK_STRINGCON
 %token TOK_ROOT TOK_BLOCK TOK_CALL
 %token ROOT IDENT NUMBER STRINGCON CHARCON
+%token TOK_TYPE_ID TOK_FUNCTION
 
 %right  '=' 
 
@@ -63,14 +64,16 @@ program : program structdef     { $$ = $1->adopt ($2); }
 structdef : TOK_STRUCT TOK_IDENT '{' typeident '}' ';' 
 { destroy($3, $5); destroy($6); $$ = $1->adopt ($2, $4); }
 
+//$2->symbol = TOK_TYPE_ID
+
 typeident : /* empty */                 { $$ = nullptr; }
-        | type TOK_IDENT ';' typeident  {}
-        | type TOK_IDENT typeident      {}
-        | ',' type TOK_IDENT typeident  {}
+        | type TOK_IDENT ';' typeident  
+        { destroy($3); 
+        $$ = new astree(TOK_TYPE_ID, $1->lloc, "")->adopt($1, $2); }
         ;
 
-type    : plaintype
-        | TOK_ARRAY '<' plaintype '>'
+type    : plaintype                     {}
+        | TOK_ARRAY '<' plaintype '>'   {}
         ;
 
 plaintype : TOK_VOID                            {}
@@ -79,8 +82,12 @@ plaintype : TOK_VOID                            {}
         | TOK_PTR '<' TOK_STRUCT TOK_IDENT '>'  {}
         ;
 
-function : type TOK_IDENT '(' typeident ')' block {}
+function : type TOK_IDENT '(' funcident ')' block {}
          ;
+
+funcident : /* empty */                 {}
+        | type TOK_IDENT funcident      {}
+        | ',' type TOK_IDENT funcident  {}
 
 block   : '{' optstmt '}'       {}
         | ';'                   {}
@@ -101,7 +108,7 @@ statement : vardecl             {}
 vardecl : type TOK_IDENT optexpr ';'    {}
         ;
 
-optexpr : /* empty */           {}
+optexpr : /* empty */           {} //SEPARATE OPTEXPR
         | '=' expr              {}
         | TOK_ELSE statement    {}
         | expr optexpr          {}
@@ -128,8 +135,8 @@ expr    : expr '=' expr         { $$ = $2->adopt ($1, $3); }
         | allocator             {}
         | call                  {}
         | '(' expr ')'          { destroy ($1, $3); $$ = $2; }
-        | TOK_IDENT             { $$ = $1; }
-        | TOK_NUMBER            { $$ = $1; }
+        | variable              { $$ = $1; }
+        | constant              { $$ = $1; }
         ;
 
 allocator : TOK_ALLOC 
