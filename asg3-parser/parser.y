@@ -38,7 +38,7 @@ achaloya
 %token TOK_EQ TOK_NE TOK_LT TOK_LE TOK_GT TOK_GE TOK_NOT
 %token TOK_IDENT TOK_INTCON TOK_CHARCON TOK_STRINGCON
 %token TOK_ROOT TOK_BLOCK TOK_CALL
-%token ROOT IDENT NUMBER STRINGCON CHARCON
+%token ROOT IDENT NUMBER
 %token TOK_TYPE_ID TOK_FUNCTION
 
 %right  '=' 
@@ -72,25 +72,29 @@ typeident : /* empty */                 { $$ = nullptr; }
         $$ = new astree(TOK_TYPE_ID, $1->lloc, "")->adopt($1, $2); }
         ;
 
-type    : plaintype                     {}
-        | TOK_ARRAY '<' plaintype '>'   {}
+type    : plaintype                     { $$ = $1 }
+        | TOK_ARRAY '<' plaintype '>'   { destroy($2, $4);
+                                          $$ = $1->adopt($3) }
         ;
 
-plaintype : TOK_VOID                            {}
-        | TOK_INT                               {}
-        | TOK_STRING                            {}
-        | TOK_PTR '<' TOK_STRUCT TOK_IDENT '>'  {}
-        ;
+plaintype : TOK_VOID                              { $$ = $1 }
+          | TOK_INT                               { $$ = $1 }
+          | TOK_STRING                            { $$ = $1 }
+          | TOK_PTR '<' TOK_STRUCT TOK_IDENT '>'  { destroy($2, $3);
+                                                    destroy($5);
+                                                    $$ = $1->adopt($4); }
+          ;
 
-function : type TOK_IDENT '(' funcident ')' block {}
+function : type TOK_IDENT '(' funcident ')' block { }
          ;
 
 funcident : /* empty */                 {}
-        | type TOK_IDENT funcident      {}
+        | type TOK_IDENT funcident      { $$ = new astree( TOK_FUNCTION, $1->lloc, "") }
         | ',' type TOK_IDENT funcident  {}
 
-block   : '{' optstmt '}'       {}
-        | ';'                   {}
+block   : '{' optstmt '}'       { destroy($3); $1->symbol = TOK_BLOCK;
+                                  $$ = $1->adopt($2) }
+        | ';'                   { $$ = $1 }
         ;
 
 optstmt : /* empty */           {}
@@ -168,4 +172,3 @@ const char* parser::get_tname (int symbol) {
 bool is_defined_token (int symbol) {
    return YYTRANSLATE (symbol) > YYUNDEFTOK;
 }
-
