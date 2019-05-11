@@ -47,6 +47,8 @@ achaloya
 %left   '*' '/' 
 %right  '^'
 %right  POS NEG
+%right  TOK_ELSE
+
 
 %%
 /*{*/
@@ -85,16 +87,17 @@ plaintype : TOK_VOID                              { $$ = $1 }
                                                     $$ = $1->adopt($4); }
           ;
 
-function : type TOK_IDENT '(' funcident ')' block { }
+function : type TOK_IDENT '(' funcident ')' block { $3->symbol = TOK_PARAM; $3->adopt($4); 
+                                                    $$ = new astree(TOK_FUNCTION, $1->lloc, "")->adopt($2, $3, $6); }
          ;
 
-funcident : /* empty */                 {}
-        | type TOK_IDENT funcident      { $$ = new astree( TOK_FUNCTION, $1->lloc, "") }
+funcident : /* empty */                 { $$ = nullptr; }
+        | type TOK_IDENT funcident      { $$ = $2; }
         | ',' type TOK_IDENT funcident  {}
 
 block   : '{' optstmt '}'       { destroy($3); $1->symbol = TOK_BLOCK;
                                   $$ = $1->adopt($2) }
-        | ';'                   { $$ = $1 }
+        | ';'                   { destroy($1); }
         ;
 
 optstmt : /* empty */           {}
@@ -119,11 +122,14 @@ optexpr : /* empty */           {} //SEPARATE OPTEXPR
         | ',' expr optexpr      {}
         ;
 
-while   : TOK_WHILE '(' expr ')' statement      {}
+while   : TOK_WHILE '(' expr ')' statement      { destroy($2, $4); $$ = $1->adopt($3, $5);  }
         ;
 
-ifelse  : TOK_IF '(' expr ')' statement optexpr {}
+ifelse  : TOK_IF '(' expr ')' statement dangling { destroy($2, $4); $$ = $1->adopt($3, $5, $6); }
         ;
+
+dangling  : TOK_ELSE statement      { destroy($1); $$ = $2; }
+          ; %prec TOK_ELSE          { $$ = nullptr; }
 
 return  : TOK_RETURN optexpr    {}
         ;
@@ -144,24 +150,27 @@ expr    : expr '=' expr         { $$ = $2->adopt ($1, $3); }
         ;
 
 allocator : TOK_ALLOC 
-        '<' TOK_STRING '>' '(' expr ')'                  {}
+        '<' TOK_STRING '>' '(' expr ')'                  { destroy($2, $4); destroy($5, $7);
+                                                           $$ = $1->adopt($3, $6); }
         | TOK_ALLOC 
-        '<' TOK_STRUCT TOK_IDENT '>' '(' ')'             {}
+        '<' TOK_STRUCT TOK_IDENT '>' '(' ')'             { destroy($2, $5); destroy($6, $7);
+                                                           destroy($3); $$ = $1->adopt($4); }
         | TOK_ALLOC 
-        '<' TOK_ARRAY '<' plaintype '>' '>' '(' expr ')' {}
+        '<' TOK_ARRAY '<' plaintype '>' '>' '(' expr ')' { destroy($2, $4); destroy($6, $7);
+                                                           destroy($8, $10) $$ = $1->adopt($3, $9); }
 
 call    : TOK_IDENT '(' optexpr ')'             {}
         ;
 
-variable : TOK_IDENT            {}
-        | expr '[' expr ']'     {}
-        | expr '->' TOK_IDENT   {}
-        ; 
+variable : TOK_IDENT             { $$ = $1; }
+         | expr '[' expr ']'     { $2->symbol = TOK_INDEX; destroy($4); $$ = $2->adopt($1, $3); }
+         | expr '->' TOK_IDENT   { $$ = $2->adopt($1, $3); }
+         ; 
 
-constant : TOK_INTCON           {}
-        | TOK_CHARCON           {}
-        | TOK_STRINGCON         {}
-        | TOK_NULLPTR           {}
+constant : TOK_INTCON            {}
+         | TOK_CHARCON           {}
+         | TOK_STRINGCON         {}
+         | TOK_NULLPTR           {}
 
 %%
 
