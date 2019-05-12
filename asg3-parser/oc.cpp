@@ -152,7 +152,7 @@ int main (int argc, char** argv) {
     string dstring;
     int opt;
     yy_flex_debug = 0;
-    //int yy_debug = 0;
+    yydebug = 0;
 
     while((opt = getopt(argc, argv, "ly@:D:")) != -1){
         switch(opt) {
@@ -160,7 +160,7 @@ int main (int argc, char** argv) {
                 yy_flex_debug = 1;
                 break;
             case 'y':
-                //yy_debug = 1;
+                yydebug = 1;
                 break;
             case '@':
                 set_debugflags(optarg);
@@ -189,32 +189,48 @@ int main (int argc, char** argv) {
         fprintf (stderr, "%s: %s: %s\n",
                 "oc", command.c_str(), strerror (errno));
     }else {
-        
-        if (!EOF){
-            yyparse();
-            printf("yy parse successful");
-            int pclose_rc = pclose (yyin);
-            eprint_status (command.c_str(), pclose_rc);
-            if (pclose_rc != 0) exec::exit_status = EXIT_FAILURE;
-        }
-        while (yylex() != YYEOF){}
-       
-        if (yy_flex_debug){
+    	if (yy_flex_debug){
             fprintf (stderr, "-- popen (%s), fileno(yyin) = %d\n",
                 command.c_str(), fileno (yyin));
         }
+        //lexer::newfilename (command);
+
+    	/*
+  		if (!EOF){
+            //int x = yyparse();
+  			yyparse();
+            int pclose_rc = pclose (yyin);
+            eprint_status (command.c_str(), pclose_rc);
+            if (pclose_rc != 0) exec::exit_status = EXIT_FAILURE;
+      
+        }
+        while (yylex() != YYEOF){}
+        */
     }
 
+    int x = yyparse();
+    //cpp close
+    int pclose_rc = pclose (yyin);
+    eprint_status (command.c_str(), pclose_rc);
+    if (pclose_rc != 0) exec::exit_status = EXIT_FAILURE;
+
     yylex_destroy();
+
+    FILE * astfile = 
+        fopen((stripsufx(filename) + ".ast").c_str(), "w");
+
+    if (x) {
+    	errprintf ("parse failed (%d)\n", x);
+    }else {
+    	astree::print (astfile, parser::root, 0);
+        //emit_sm_code (parser::root);
+        //delete parser::root;
+    }
 
 
     string strname = stripsufx(filename) + ".str";
     FILE * strfile = fopen(strname.c_str(), "w");
     string_set::dump(strfile); 
-
-    FILE * astfile = 
-        fopen((stripsufx(filename) + ".ast").c_str(), "w");
-    fprintf(astfile, " ");
         
     return exit_status;
 }

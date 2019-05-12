@@ -13,7 +13,7 @@ achaloya
 
 %}
 
-%option 8bit 
+%option 8bit
 %option debug
 %option nobackup
 %option nodefault
@@ -38,10 +38,10 @@ CHARCON         (’([^\\’\n]|\\[\\’"0nt])’)
 [ \t]+          { }
 \n              { lexer::newline(); }
 
+\'                { } 
 \"                { }
 \!                { }
 \\                { }
-CHARCON           { return lexer::token (TOK_CHARCON); }
 ("if")            { return lexer::token (TOK_IF); }
 ("else")          { return lexer::token (TOK_ELSE); }
 ("while")         { return lexer::token (TOK_WHILE); }
@@ -55,8 +55,8 @@ CHARCON           { return lexer::token (TOK_CHARCON); }
 ("array")         { return lexer::token (TOK_ARRAY); }
 ("ptr")           { return lexer::token (TOK_PTR); }
 ("void")          { return lexer::token (TOK_VOID); }
-{NUMBER}        { return lexer::token (NUMBER); }
-{IDENT}         { return lexer::token (IDENT); }
+{NUMBER}        { return lexer::token (TOK_INTCON); }
+{IDENT}         { return lexer::token (TOK_IDENT); }
 ","             { return lexer::token (','); }
 "="             { return lexer::token ('='); }
 "+"             { return lexer::token ('+'); }
@@ -79,9 +79,10 @@ CHARCON           { return lexer::token (TOK_CHARCON); }
 ">"             { return lexer::token (TOK_GT); }
 ">="            { return lexer::token (TOK_GE); }
 "->"            { return lexer::token (TOK_ARROW); }
+CHARCON           { return lexer::token (TOK_CHARCON); }
 
-
-{NOTNUMBER}     { return lexer::badtoken (NUMBER); }
+{NOTNUMBER}     { return lexer::badtoken (TOK_INTCON); }
 .               { lexer::badchar (*yytext); }
 
 %%
+
