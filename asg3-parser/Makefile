@@ -15,7 +15,7 @@ MKDEPS    = g++ -std=gnu++17 -MM
 GRIND     = valgrind --leak-check=full --show-reachable=yes
 UTILBIN   = /afs/cats.ucsc.edu/courses/cmps104a-wm/bin/
 
-MODULES   = astree lyutils string_set auxlib
+MODULES   = astree lyutils string_set emitter auxlib
 HDRSRC    = ${MODULES:=.h}
 CPPSRC    = ${MODULES:=.cpp} oc.cpp
 FLEXSRC   = scanner.l

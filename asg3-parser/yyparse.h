@@ -73,12 +73,14 @@ extern int yydebug;
     TOK_BLOCK = 283,
     TOK_CALL = 284,
     ROOT = 285,
-    TOK_TYPE_ID = 286,
-    TOK_FUNCTION = 287,
-    TOK_INDEX = 288,
-    TOK_PARAM = 289,
-    POS = 290,
-    NEG = 291
+    NUMBER = 286,
+    IDENT = 287,
+    TOK_TYPE_ID = 288,
+    TOK_FUNCTION = 289,
+    TOK_INDEX = 290,
+    TOK_PARAM = 291,
+    POS = 292,
+    NEG = 293
   };
 #endif
 
