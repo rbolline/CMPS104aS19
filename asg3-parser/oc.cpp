@@ -189,16 +189,16 @@ int main (int argc, char** argv) {
         fprintf (stderr, "%s: %s: %s\n",
                 "oc", command.c_str(), strerror (errno));
     }else {
-    	if (yy_flex_debug){
+        if (yy_flex_debug){
             fprintf (stderr, "-- popen (%s), fileno(yyin) = %d\n",
                 command.c_str(), fileno (yyin));
         }
         //lexer::newfilename (command);
 
-    	/*
-  		if (!EOF){
+        /*
+        if (!EOF){
             //int x = yyparse();
-  			yyparse();
+            yyparse();
             int pclose_rc = pclose (yyin);
             eprint_status (command.c_str(), pclose_rc);
             if (pclose_rc != 0) exec::exit_status = EXIT_FAILURE;
@@ -220,9 +220,9 @@ int main (int argc, char** argv) {
         fopen((stripsufx(filename) + ".ast").c_str(), "w");
 
     if (x) {
-    	errprintf ("parse failed (%d)\n", x);
+        errprintf ("parse failed (%d)\n", x);
     }else {
-    	astree::print (astfile, parser::root, 0);
+        astree::print (astfile, parser::root, 0);
         //emit_sm_code (parser::root);
         //delete parser::root;
     }
