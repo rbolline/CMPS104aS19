@@ -42,6 +42,7 @@ CHARCON         (’([^\\’\n]|\\[\\’"0nt])’)
 \"                { }
 \!                { }
 \\                { }
+CHARCON           { return lexer::token (TOK_CHARCON); }
 ("if")            { return lexer::token (TOK_IF); }
 ("else")          { return lexer::token (TOK_ELSE); }
 ("while")         { return lexer::token (TOK_WHILE); }
@@ -79,10 +80,11 @@ CHARCON         (’([^\\’\n]|\\[\\’"0nt])’)
 ">"             { return lexer::token (TOK_GT); }
 ">="            { return lexer::token (TOK_GE); }
 "->"            { return lexer::token (TOK_ARROW); }
-CHARCON           { return lexer::token (TOK_CHARCON); }
+
 
 {NOTNUMBER}     { return lexer::badtoken (TOK_INTCON); }
 .               { lexer::badchar (*yytext); }
 
 %%
+
 

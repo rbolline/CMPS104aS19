@@ -445,18 +445,18 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[108] =
     {   0,
-        0,    0,   49,   47,    2,    3,    6,    5,    1,   37,
-        4,   30,   31,   27,   25,   23,   26,   47,   28,   21,
-       36,   40,   24,   42,   22,   22,   32,    7,   33,   29,
-       22,   22,   22,   22,   22,   22,   22,   22,   22,   34,
-       35,    2,   39,    1,   44,   21,   21,   21,   46,   41,
-       38,   43,   22,   22,   22,   22,   22,    8,   22,   22,
-       22,   22,   22,   22,   22,   22,   21,   46,   21,   22,
-       22,   22,   22,   15,   14,   22,   19,   22,   22,   22,
-       22,   22,   22,   22,    9,   22,   22,   22,   22,   20,
-       22,   22,   12,   18,   22,   22,   22,   22,   10,   22,
+        0,    0,   49,   47,    2,    3,    6,    5,    1,   38,
+        4,   31,   32,   28,   26,   24,   27,   47,   29,   22,
+       37,   41,   25,   43,   23,   23,   33,    7,   34,   30,
+       23,   23,   23,   23,   23,   23,   23,   23,   23,   35,
+       36,    2,   40,    1,   45,   22,   22,   22,   46,   42,
+       39,   44,   23,   23,   23,   23,   23,    9,   23,   23,
+       23,   23,   23,   23,   23,   23,   22,   46,   22,   23,
+       23,   23,   23,   16,   15,   23,   20,   23,   23,   23,
+       23,   23,   23,   23,   10,   23,   23,   23,   23,   21,
+       23,   23,   13,   19,   23,   23,   23,   23,   11,   23,
 
-       22,   11,   16,   17,   22,   13,    0
+       23,   12,   17,   18,    8,   14,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -597,7 +597,7 @@ static const flex_int16_t yy_rule_linenum[48] =
        48,   49,   50,   51,   52,   53,   54,   55,   56,   57,
        58,   59,   60,   61,   62,   63,   64,   65,   66,   67,
        68,   69,   70,   71,   72,   73,   74,   75,   76,   77,
-       78,   79,   80,   81,   82,   84,   85
+       78,   79,   80,   81,   82,   85,   86
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -1024,206 +1024,206 @@ YY_RULE_SETUP
 case 8:
 YY_RULE_SETUP
 #line 45 "scanner.l"
-{ return lexer::token (TOK_IF); }
+{ return lexer::token (TOK_CHARCON); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 46 "scanner.l"
-{ return lexer::token (TOK_ELSE); }
+{ return lexer::token (TOK_IF); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 47 "scanner.l"
-{ return lexer::token (TOK_WHILE); }
+{ return lexer::token (TOK_ELSE); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 48 "scanner.l"
-{ return lexer::token (TOK_RETURN); }
+{ return lexer::token (TOK_WHILE); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 49 "scanner.l"
-{ return lexer::token (TOK_ALLOC); }
+{ return lexer::token (TOK_RETURN); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 50 "scanner.l"
-{ return lexer::token (TOK_NULLPTR); }
+{ return lexer::token (TOK_ALLOC); }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 51 "scanner.l"
-{ return lexer::token (TOK_NOT); }
+{ return lexer::token (TOK_NULLPTR); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 52 "scanner.l"
-{ return lexer::token (TOK_INT); }
+{ return lexer::token (TOK_NOT); }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 53 "scanner.l"
-{ return lexer::token (TOK_STRING); }
+{ return lexer::token (TOK_INT); }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 54 "scanner.l"
-{ return lexer::token (TOK_STRUCT); }
+{ return lexer::token (TOK_STRING); }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 55 "scanner.l"
-{ return lexer::token (TOK_ARRAY); }
+{ return lexer::token (TOK_STRUCT); }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 56 "scanner.l"
-{ return lexer::token (TOK_PTR); }
+{ return lexer::token (TOK_ARRAY); }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 57 "scanner.l"
-{ return lexer::token (TOK_VOID); }
+{ return lexer::token (TOK_PTR); }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 58 "scanner.l"
-{ return lexer::token (TOK_INTCON); }
+{ return lexer::token (TOK_VOID); }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 59 "scanner.l"
-{ return lexer::token (TOK_IDENT); }
+{ return lexer::token (TOK_INTCON); }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 60 "scanner.l"
-{ return lexer::token (','); }
+{ return lexer::token (TOK_IDENT); }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 61 "scanner.l"
-{ return lexer::token ('='); }
+{ return lexer::token (','); }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 62 "scanner.l"
-{ return lexer::token ('+'); }
+{ return lexer::token ('='); }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 63 "scanner.l"
-{ return lexer::token ('-'); }
+{ return lexer::token ('+'); }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 64 "scanner.l"
-{ return lexer::token ('*'); }
+{ return lexer::token ('-'); }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 65 "scanner.l"
-{ return lexer::token ('/'); }
+{ return lexer::token ('*'); }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 66 "scanner.l"
-{ return lexer::token ('^'); }
+{ return lexer::token ('/'); }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 67 "scanner.l"
-{ return lexer::token ('('); }
+{ return lexer::token ('^'); }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 68 "scanner.l"
-{ return lexer::token (')'); }
+{ return lexer::token ('('); }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 69 "scanner.l"
-{ return lexer::token ('['); }
+{ return lexer::token (')'); }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 70 "scanner.l"
-{ return lexer::token (']'); }
+{ return lexer::token ('['); }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 71 "scanner.l"
-{ return lexer::token ('{'); }
+{ return lexer::token (']'); }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 72 "scanner.l"
-{ return lexer::token ('}'); }
+{ return lexer::token ('{'); }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 73 "scanner.l"
-{ return lexer::token (';'); }
+{ return lexer::token ('}'); }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 74 "scanner.l"
-{ return lexer::token ('%'); }
+{ return lexer::token (';'); }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 75 "scanner.l"
-{ return lexer::token (TOK_EQ); }
+{ return lexer::token ('%'); }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 76 "scanner.l"
-{ return lexer::token (TOK_NE); }
+{ return lexer::token (TOK_EQ); }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 77 "scanner.l"
-{ return lexer::token (TOK_LT); }
+{ return lexer::token (TOK_NE); }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 78 "scanner.l"
-{ return lexer::token (TOK_LE); }
+{ return lexer::token (TOK_LT); }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 79 "scanner.l"
-{ return lexer::token (TOK_GT); }
+{ return lexer::token (TOK_LE); }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
 #line 80 "scanner.l"
-{ return lexer::token (TOK_GE); }
+{ return lexer::token (TOK_GT); }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
 #line 81 "scanner.l"
-{ return lexer::token (TOK_ARROW); }
+{ return lexer::token (TOK_GE); }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
 #line 82 "scanner.l"
-{ return lexer::token (TOK_CHARCON); }
+{ return lexer::token (TOK_ARROW); }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 84 "scanner.l"
+#line 85 "scanner.l"
 { return lexer::badtoken (TOK_INTCON); }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 85 "scanner.l"
+#line 86 "scanner.l"
 { lexer::badchar (*yytext); }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 87 "scanner.l"
+#line 88 "scanner.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
 #line 1229 "yylex.cpp"
@@ -2332,7 +2332,8 @@ void yyfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 87 "scanner.l"
+#line 88 "scanner.l"
+
 
 
 

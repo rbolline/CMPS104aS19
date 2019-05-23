@@ -72,11 +72,8 @@ extern int yydebug;
     TOK_ROOT = 282,
     TOK_BLOCK = 283,
     TOK_CALL = 284,
-    ROOT = 285,
-    IDENT = 286,
-    NUMBER = 287,
-    STRINGCON = 288,
-    CHARCON = 289
+    NUMBER = 285,
+    IDENT = 286
   };
 #endif
 

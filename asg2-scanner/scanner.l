@@ -41,6 +41,7 @@ CHARCON         (’([^\\’\n]|\\[\\’"0nt])’)
 \"                { }
 \!                { }
 \\                { }
+\'                { } 
 CHARCON           { return lexer::token (TOK_CHARCON); }
 ("if")            { return lexer::token (TOK_IF); }
 ("else")          { return lexer::token (TOK_ELSE); }
