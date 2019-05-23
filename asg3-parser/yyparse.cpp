@@ -466,6 +466,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
+<<<<<<< HEAD
        0,    56,    56,    59,    60,    61,    62,    63,    64,    67,
       71,    72,    76,    77,    81,    82,    83,    84,    89,    97,
       98,   100,   104,   107,   110,   111,   114,   115,   116,   117,
@@ -474,6 +475,15 @@ static const yytype_uint8 yyrline[] =
      164,   165,   166,   167,   168,   169,   170,   171,   174,   177,
      180,   185,   189,   190,   191,   192,   193,   196,   197,   199,
      202,   203,   204,   205,   206
+=======
+       0,    55,    55,    58,    59,    60,    61,    62,    63,    66,
+      70,    71,    75,    76,    80,    81,    82,    83,    88,    96,
+      97,    99,   103,   105,   108,   109,   112,   113,   114,   115,
+     116,   117,   120,   131,   136,   141,   142,   146,   150,   151,
+     152,   153,   154,   155,   156,   157,   158,   159,   160,   161,
+     162,   163,   164,   165,   168,   172,   176,   182,   186,   187,
+     188,   189,   190,   193,   194,   196,   199,   200,   201,   202
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
 };
 #endif
 
@@ -2418,7 +2428,11 @@ yyreduce:
 #line 72 "parser.y" /* yacc.c:1646  */
     { destroy((yyvsp[-1])); 
 (yyval) = (new astree(TOK_TYPE_ID, (yyvsp[-3])->lloc, ""))->adopt((yyvsp[-3]), (yyvsp[-2])); }
+<<<<<<< HEAD
 #line 2422 "yyparse.cpp" /* yacc.c:1646  */
+=======
+#line 2384 "yyparse.cpp" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     break;
 
   case 12:
@@ -2457,7 +2471,11 @@ yyreduce:
     { destroy((yyvsp[-3]), (yyvsp[-2]));
                                                 destroy((yyvsp[0]));
                                                 (yyval) = (yyvsp[-4])->adopt((yyvsp[-1])); }
+<<<<<<< HEAD
 #line 2461 "yyparse.cpp" /* yacc.c:1646  */
+=======
+#line 2423 "yyparse.cpp" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     break;
 
   case 18:
@@ -2467,7 +2485,11 @@ yyreduce:
 (yyval) = (new astree(TOK_FUNCTION, (yyvsp[-5])->lloc, ""))
         ->adopt((new astree(TOK_TYPE_ID, (yyvsp[-5])->lloc, ""))->adopt((yyvsp[-5]), (yyvsp[-4]))
                 , (yyvsp[-3]), (yyvsp[0])); }
+<<<<<<< HEAD
 #line 2471 "yyparse.cpp" /* yacc.c:1646  */
+=======
+#line 2433 "yyparse.cpp" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     break;
 
   case 19:
@@ -2477,6 +2499,7 @@ yyreduce:
     break;
 
   case 20:
+<<<<<<< HEAD
 #line 99 "parser.y" /* yacc.c:1646  */
     {(yyval) = (new astree(TOK_TYPE_ID, (yyvsp[-2])->lloc, ""))->adopt((yyvsp[-2]), (yyvsp[-1]));}
 #line 2483 "yyparse.cpp" /* yacc.c:1646  */
@@ -2504,41 +2527,102 @@ yyreduce:
 
   case 26:
 #line 114 "parser.y" /* yacc.c:1646  */
+=======
+#line 98 "parser.y" /* yacc.c:1646  */
+    {(yyval) = (new astree(TOK_TYPE_ID, (yyvsp[-2])->lloc, ""))->adopt((yyvsp[-2]), (yyvsp[-1]));}
+#line 2445 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 21:
+#line 100 "parser.y" /* yacc.c:1646  */
+    {(yyval) = (new astree(TOK_TYPE_ID, (yyvsp[-3])->lloc, ""))->adopt((yyvsp[-2]), (yyvsp[-1]));}
+#line 2451 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 22:
+#line 103 "parser.y" /* yacc.c:1646  */
+    { destroy((yyvsp[0])); (yyvsp[-2])->symbol = TOK_BLOCK;
+                                  (yyval) = (yyvsp[-2])->adopt((yyvsp[-1])); }
+#line 2458 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 23:
+#line 105 "parser.y" /* yacc.c:1646  */
+    { destroy((yyvsp[0])); }
+#line 2464 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 24:
+#line 108 "parser.y" /* yacc.c:1646  */
+    { (yyval) = nullptr; }
+#line 2470 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 25:
+#line 109 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-1]); }
+#line 2476 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 26:
+#line 112 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[0]); }
 #line 2509 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 27:
+<<<<<<< HEAD
 #line 115 "parser.y" /* yacc.c:1646  */
+=======
+#line 113 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[0]); }
 #line 2515 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 28:
+<<<<<<< HEAD
 #line 116 "parser.y" /* yacc.c:1646  */
+=======
+#line 114 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[0]); }
 #line 2521 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 29:
+<<<<<<< HEAD
 #line 117 "parser.y" /* yacc.c:1646  */
+=======
+#line 115 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[0]); }
 #line 2527 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 30:
+<<<<<<< HEAD
 #line 118 "parser.y" /* yacc.c:1646  */
+=======
+#line 116 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[0]); }
 #line 2533 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 31:
+<<<<<<< HEAD
 #line 119 "parser.y" /* yacc.c:1646  */
+=======
+#line 117 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { destroy((yyvsp[0])); (yyval) = (yyvsp[-1]); }
 #line 2539 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 32:
+<<<<<<< HEAD
 #line 122 "parser.y" /* yacc.c:1646  */
     { destroy((yyvsp[-2]), (yyvsp[0])); 
 (yyval) = (new astree(TOK_TYPE_ID, (yyvsp[-4])->lloc, ""))->adopt((yyvsp[-4]), (yyvsp[-3]), (yyvsp[-1])); }
@@ -2547,89 +2631,152 @@ yyreduce:
 
   case 33:
 #line 134 "parser.y" /* yacc.c:1646  */
+=======
+#line 120 "parser.y" /* yacc.c:1646  */
+    { destroy((yyvsp[-2]), (yyvsp[0])); 
+(yyval) = (new astree(TOK_TYPE_ID, (yyvsp[-4])->lloc, ""))->adopt((yyvsp[-4]), (yyvsp[-3]), (yyvsp[-1])); }
+#line 2519 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 33:
+#line 132 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { destroy((yyvsp[-3]), (yyvsp[-1])); (yyval) = (yyvsp[-4])->adopt((yyvsp[-2]), (yyvsp[0]));  }
 #line 2552 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 34:
+<<<<<<< HEAD
 #line 139 "parser.y" /* yacc.c:1646  */
+=======
+#line 137 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { destroy((yyvsp[-4]), (yyvsp[-2])); (yyval) = (yyvsp[-5])->adopt((yyvsp[-3]), (yyvsp[-1]), (yyvsp[0])); }
 #line 2558 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 35:
+<<<<<<< HEAD
 #line 143 "parser.y" /* yacc.c:1646  */
+=======
+#line 141 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { destroy((yyvsp[-1])); (yyval) = (yyvsp[0]); }
 #line 2564 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 36:
+<<<<<<< HEAD
 #line 144 "parser.y" /* yacc.c:1646  */
+=======
+#line 142 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = nullptr; }
 #line 2570 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 37:
+<<<<<<< HEAD
 #line 148 "parser.y" /* yacc.c:1646  */
+=======
+#line 146 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     {destroy((yyvsp[0])); (yyval) = (yyvsp[-2])->adopt((yyvsp[-1])); }
 #line 2576 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 38:
+<<<<<<< HEAD
 #line 152 "parser.y" /* yacc.c:1646  */
+=======
+#line 150 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[-1])->adopt ((yyvsp[-2]), (yyvsp[0])); }
 #line 2582 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 39:
+<<<<<<< HEAD
 #line 153 "parser.y" /* yacc.c:1646  */
+=======
+#line 151 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[-1])->adopt ((yyvsp[-2]), (yyvsp[0])); }
 #line 2588 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 40:
+<<<<<<< HEAD
 #line 154 "parser.y" /* yacc.c:1646  */
+=======
+#line 152 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[-1])->adopt ((yyvsp[-2]), (yyvsp[0])); }
 #line 2594 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 41:
+<<<<<<< HEAD
 #line 155 "parser.y" /* yacc.c:1646  */
+=======
+#line 153 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[-1])->adopt ((yyvsp[-2]), (yyvsp[0])); }
 #line 2600 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 42:
+<<<<<<< HEAD
 #line 156 "parser.y" /* yacc.c:1646  */
+=======
+#line 154 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[-1])->adopt ((yyvsp[-2]), (yyvsp[0])); }
 #line 2606 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 43:
+<<<<<<< HEAD
 #line 157 "parser.y" /* yacc.c:1646  */
+=======
+#line 155 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[-1])->adopt ((yyvsp[-2]), (yyvsp[0])); }
 #line 2612 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 44:
+<<<<<<< HEAD
 #line 158 "parser.y" /* yacc.c:1646  */
+=======
+#line 156 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[-1])->adopt ((yyvsp[-2]), (yyvsp[0])); }
 #line 2618 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 45:
+<<<<<<< HEAD
 #line 159 "parser.y" /* yacc.c:1646  */
+=======
+#line 157 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[-1])->adopt ((yyvsp[-2]), (yyvsp[0])); }
 #line 2624 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 46:
+<<<<<<< HEAD
 #line 160 "parser.y" /* yacc.c:1646  */
+=======
+#line 158 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[-1])->adopt ((yyvsp[-2]), (yyvsp[0])); }
 #line 2630 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 47:
+<<<<<<< HEAD
 #line 161 "parser.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[-1])->adopt ((yyvsp[-2]), (yyvsp[0])); }
 #line 2636 "yyparse.cpp" /* yacc.c:1646  */
@@ -2667,11 +2814,51 @@ yyreduce:
 
   case 53:
 #line 167 "parser.y" /* yacc.c:1646  */
+=======
+#line 159 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-1])->adopt_sym ((yyvsp[0]), POS); }
+#line 2609 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 48:
+#line 160 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-1])->adopt_sym ((yyvsp[0]), NEG); }
+#line 2615 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 49:
+#line 161 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[0]); }
+#line 2621 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 50:
+#line 162 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[0]); }
+#line 2627 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 51:
+#line 163 "parser.y" /* yacc.c:1646  */
+    { destroy ((yyvsp[-2]), (yyvsp[0])); (yyval) = (yyvsp[-1]); }
+#line 2633 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 52:
+#line 164 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[0]); }
+#line 2639 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 53:
+#line 165 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[0]); }
 #line 2672 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 54:
+<<<<<<< HEAD
 #line 168 "parser.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[0]); }
 #line 2678 "yyparse.cpp" /* yacc.c:1646  */
@@ -2730,11 +2917,72 @@ yyreduce:
 
   case 63:
 #line 190 "parser.y" /* yacc.c:1646  */
+=======
+#line 170 "parser.y" /* yacc.c:1646  */
+    { destroy((yyvsp[-5]), (yyvsp[-3])); destroy((yyvsp[-2]), (yyvsp[0]));
+                (yyval) = (yyvsp[-6])->adopt((yyvsp[-4]), (yyvsp[-1])); }
+#line 2652 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 55:
+#line 174 "parser.y" /* yacc.c:1646  */
+    { destroy((yyvsp[-5]), (yyvsp[-2])); destroy((yyvsp[-1]), (yyvsp[0]));
+                destroy((yyvsp[-4])); (yyval) = (yyvsp[-6])->adopt((yyvsp[-3])); }
+#line 2659 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 56:
+#line 178 "parser.y" /* yacc.c:1646  */
+    { destroy((yyvsp[-8]), (yyvsp[-6])); destroy((yyvsp[-4]), (yyvsp[-3]));
+                destroy((yyvsp[-2]), (yyvsp[0])); (yyval) = (yyvsp[-9])->adopt((yyvsp[-7]), (yyvsp[-1])); }
+#line 2666 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 57:
+#line 183 "parser.y" /* yacc.c:1646  */
+    { (yyvsp[-2])->symbol = TOK_CALL; destroy((yyvsp[0])); (yyval) = (yyvsp[-2])->adopt((yyvsp[-3]), (yyvsp[-1])); }
+#line 2672 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 58:
+#line 186 "parser.y" /* yacc.c:1646  */
+    { (yyval) = nullptr; }
+#line 2678 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 59:
+#line 187 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[0]); }
+#line 2684 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 60:
+#line 188 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[0]); }
+#line 2690 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 61:
+#line 189 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-1]); }
+#line 2696 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 62:
+#line 190 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-1]); }
+#line 2702 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 63:
+#line 193 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[0]); }
 #line 2735 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 64:
+<<<<<<< HEAD
 #line 191 "parser.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[0]); }
 #line 2741 "yyparse.cpp" /* yacc.c:1646  */
@@ -2754,11 +3002,33 @@ yyreduce:
 
   case 67:
 #line 196 "parser.y" /* yacc.c:1646  */
+=======
+#line 195 "parser.y" /* yacc.c:1646  */
+    {(yyvsp[-2])->symbol = TOK_INDEX; destroy((yyvsp[0])); (yyval) = (yyvsp[-2])->adopt((yyvsp[-3]), (yyvsp[-1]));}
+#line 2714 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 65:
+#line 196 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-1])->adopt((yyvsp[-2]), (yyvsp[0])); }
+#line 2720 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 66:
+#line 199 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[0]); }
+#line 2726 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 67:
+#line 200 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[0]); }
 #line 2759 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 68:
+<<<<<<< HEAD
 #line 198 "parser.y" /* yacc.c:1646  */
     {(yyvsp[-2])->symbol = TOK_INDEX; destroy((yyvsp[0])); (yyval) = (yyvsp[-2])->adopt((yyvsp[-3]), (yyvsp[-1]));}
 #line 2765 "yyparse.cpp" /* yacc.c:1646  */
@@ -2796,6 +3066,15 @@ yyreduce:
 
   case 74:
 #line 206 "parser.y" /* yacc.c:1646  */
+=======
+#line 201 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[0]); }
+#line 2738 "yyparse.cpp" /* yacc.c:1646  */
+    break;
+
+  case 69:
+#line 202 "parser.y" /* yacc.c:1646  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
     { (yyval) = (yyvsp[0]); }
 #line 2801 "yyparse.cpp" /* yacc.c:1646  */
     break;
@@ -3029,7 +3308,11 @@ yyreturn:
 #endif
   return yyresult;
 }
+<<<<<<< HEAD
 #line 208 "parser.y" /* yacc.c:1906  */
+=======
+#line 204 "parser.y" /* yacc.c:1906  */
+>>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
 
 
 const char* parser::get_tname (int symbol) {

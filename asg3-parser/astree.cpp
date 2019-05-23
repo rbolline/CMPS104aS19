@@ -65,7 +65,7 @@ void astree::dump_tree (FILE* outfile, int depth) {
    fprintf (outfile, "%*s", depth * 3, "");
    dump_node (outfile);
    fprintf (outfile, "\n");
-   for (astree* child: children) child->dump_tree (outfile, depth + 1);
+   for(astree* child: children) child->dump_tree (outfile, depth + 1);
    fflush (nullptr);
 }
 
@@ -75,13 +75,19 @@ void astree::dump (FILE* outfile, astree* tree) {
 }
 
 void astree::print (FILE* outfile, astree* tree, int depth) {
-   fprintf (outfile, "; %*s", depth * 3, "");
-   fprintf (outfile, "%s \"%s\" (%zd.%zd.%zd)\n",
-            parser::get_tname (tree->symbol), tree->lexinfo->c_str(),
-            tree->lloc.filenr, tree->lloc.linenr, tree->lloc.offset);
-   for (astree* child: tree->children) {
-      astree::print (outfile, child, depth + 1);
-   }
+    if(depth >= 1){
+        for(int i = 0; i < depth; i++){
+            fprintf (outfile, "| %*s", 1, "");
+        }
+    }
+    const char *tname = parser::get_tname (tree->symbol);
+    if (strstr (tname, "TOK_") == tname) tname += 4;
+    fprintf (outfile, "%s \"%s\" (%zd.%zd.%zd)\n",
+                tname, tree->lexinfo->c_str(),
+                tree->lloc.filenr, tree->lloc.linenr, tree->lloc.offset);
+    for (astree* child: tree->children) {
+        astree::print (outfile, child, depth + 1);
+    }
 }
 
 void destroy (astree* tree1, astree* tree2) {
