@@ -1,0 +1,14 @@
+// $Id: 13-assertfail.oc,v 1.1 2019-04-16 12:14:45-07 - - $
+
+#include "oclib.h"
+
+int main (int argc, array<string> argv) {
+   putstr (argv[0]);
+   putstr (" was compiled on ");
+   putstr (__DATE__);
+   putstr (" @ ");
+   putstr (__TIME__);
+   putstr ("\n");
+   return SUCCESS;
+}
+
