@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Makefile.deps created Thu May 23 14:06:30 PDT 2019 by make
-=======
-# Makefile.deps created Mon May 13 13:54:55 PDT 2019 by make
->>>>>>> 64c3117e55c3cc402f7311f54182f312917adcbb
+# Makefile.deps created Thu May 23 19:34:20 PDT 2019 by make
 astree.o: astree.cpp astree.h auxlib.h string_set.h lyutils.h yyparse.h
 lyutils.o: lyutils.cpp auxlib.h lyutils.h astree.h yyparse.h
 string_set.o: string_set.cpp auxlib.h string_set.h

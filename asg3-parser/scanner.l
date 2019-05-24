@@ -30,7 +30,8 @@ EXPONENT        ([Ee][+-]?{DIGIT}+)
 NUMBER          ({MANTISSA}{EXPONENT}?)
 NOTNUMBER       ({MANTISSA}[Ee][+-]?)
 IDENT           ({LETTER}({LETTER}|{DIGIT})*)
-CHARCON         (’([^\\’\n]|\\[\\’"0nt])’)
+CHARCON         ('([^\\'\n]|\\[\\'"0nt])')
+STRINGCON       (\"([^\\"\n]|\\[\\'"0nt])*\")
 
 %%
 
@@ -42,7 +43,9 @@ CHARCON         (’([^\\’\n]|\\[\\’"0nt])’)
 \"                { }
 \!                { }
 \\                { }
-CHARCON           { return lexer::token (TOK_CHARCON); }
+\:                { }
+{CHARCON}         { return lexer::token (TOK_CHARCON); }
+{STRINGCON}       { return lexer::token (TOK_STRINGCON); } 
 ("if")            { return lexer::token (TOK_IF); }
 ("else")          { return lexer::token (TOK_ELSE); }
 ("while")         { return lexer::token (TOK_WHILE); }
@@ -86,5 +89,4 @@ CHARCON           { return lexer::token (TOK_CHARCON); }
 .               { lexer::badchar (*yytext); }
 
 %%
-
 

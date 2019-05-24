@@ -75,10 +75,7 @@
 
    7   7.004   278  TOK_IDENT    putstr
    7   7.011    40  '('          (
-   7   7.013   278  TOK_IDENT    Hello
-   7   7.018    44  ','          ,
-   7   7.020   278  TOK_IDENT    world
-   7   7.027   278  TOK_IDENT    n
+   7   7.012   281  TOK_STRINGCON "Hello, world!\n"
    7   7.029    41  ')'          )
    7   7.030    59  ';'          ;
 
