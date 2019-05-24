@@ -28,13 +28,6 @@ using namespace std;
 #include "emitter.h"
 #include "lyutils.h"
 
-enum class attr {
-VOID, INT, NULLPTR_T, STRING, 
-STRUCT, ARRAY, FUNCTION, VARIABLE, 
-FIELD, TYPEID, PARAM, LOCAL, LVAL, 
-CONST, VREG, VADDR, BITSET_SIZE,
-};
-
-using attr_bitset = bitset<attr::BITSET_SIZE>;
-using symbol_table = unordered_map<const string*, symbol*>;
-using symbol_entry = symbol_table::value_type;
+//Post order traversal of AST
+//typechecking grammar implementation
+//Call from oc.cpp
