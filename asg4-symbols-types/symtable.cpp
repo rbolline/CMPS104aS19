@@ -20,6 +20,7 @@ using namespace std;
 #include <wait.h>
 #include <unistd.h>
 #include <cassert>
+#include <bitset>
 
 #include "string_set.h"
 #include "astree.h"
@@ -27,5 +28,13 @@ using namespace std;
 #include "emitter.h"
 #include "lyutils.h"
 
-using symbol_table = unordered_map<string*,symbol*>; 
+enum class attr {
+VOID, INT, NULLPTR_T, STRING, 
+STRUCT, ARRAY, FUNCTION, VARIABLE, 
+FIELD, TYPEID, PARAM, LOCAL, LVAL, 
+CONST, VREG, VADDR, BITSET_SIZE,
+};
+
+using attr_bitset = bitset<attr::BITSET_SIZE>;
+using symbol_table = unordered_map<const string*, symbol*>;
 using symbol_entry = symbol_table::value_type;

@@ -74,11 +74,11 @@ lis : ${LISTSRC} tests
 	      ${patsubst %, ${test}.%, in out err log}}
 
 clean :
-	- rm ${OBJECTS} ${ALLGENS} ${REPORTS} ${DEPSFILE} core
+	- rm ${OBJECTS} ${ALLGENS} ${REPORTS} ${DEPSFILE}
 	
 
 spotless : clean
-	- rm ${EXECBIN} *.str *.tok *.ast
+	- rm ${EXECBIN} *.str *.tok *.ast *.sym
 
 deps : ${ALLCSRC}
 	@ echo "# ${DEPSFILE} created `date` by ${MAKE}" >${DEPSFILE}

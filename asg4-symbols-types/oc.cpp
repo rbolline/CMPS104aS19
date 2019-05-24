@@ -215,7 +215,8 @@ int main (int argc, char** argv) {
     if (pclose_rc != 0) exec::exit_status = EXIT_FAILURE;
 
     yylex_destroy();
-
+    FILE * symfile = 
+        fopen((stripsufx(filename) + ".sym").c_str(), "w");
     FILE * astfile = 
         fopen((stripsufx(filename) + ".ast").c_str(), "w");
 
