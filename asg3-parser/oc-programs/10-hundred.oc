@@ -1,0 +1,13 @@
+// $Id: 10-hundred.oc,v 1.1 2019-04-16 12:14:45-07 - - $
+
+#include "oclib.h"
+
+int main() {
+   int count = 0;
+   while (count < 16) {
+      count = count + 1;
+      putint (count);
+      putchr ('\n');
+   }
+   return SUCCESS;
+}

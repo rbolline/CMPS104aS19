@@ -153,7 +153,10 @@ int main (int argc, char** argv) {
     int opt;
     yy_flex_debug = 0;
     yydebug = 0;
-
+    if (argc < 2){
+        std::cout << "oc: Error: No arguments \n";
+        return EXIT_FAILURE;
+    }
     while((opt = getopt(argc, argv, "ly@:D:")) != -1){
         switch(opt) {
             case 'l':
@@ -177,7 +180,7 @@ int main (int argc, char** argv) {
     }
     filename = basename(argv[optind]);
     string command = CPP + " " + argv[optind];
-
+    exec::execname = filename;
     string tokname = stripsufx(filename) + ".tok";
     tokfile = fopen(tokname.c_str(), "w");
 
@@ -189,16 +192,16 @@ int main (int argc, char** argv) {
         fprintf (stderr, "%s: %s: %s\n",
                 "oc", command.c_str(), strerror (errno));
     }else {
-    	if (yy_flex_debug){
+        if (yy_flex_debug){
             fprintf (stderr, "-- popen (%s), fileno(yyin) = %d\n",
                 command.c_str(), fileno (yyin));
         }
         //lexer::newfilename (command);
 
-    	/*
-  		if (!EOF){
+        /*
+        if (!EOF){
             //int x = yyparse();
-  			yyparse();
+            yyparse();
             int pclose_rc = pclose (yyin);
             eprint_status (command.c_str(), pclose_rc);
             if (pclose_rc != 0) exec::exit_status = EXIT_FAILURE;
@@ -220,9 +223,10 @@ int main (int argc, char** argv) {
         fopen((stripsufx(filename) + ".ast").c_str(), "w");
 
     if (x) {
-    	errprintf ("parse failed (%d)\n", x);
+        errprintf 
+        ("oc: Error(%d): Parse failed, exiting program\n", x);
     }else {
-    	astree::print (astfile, parser::root);
+        astree::print (astfile, parser::root);
         //emit_sm_code (parser::root);
         //delete parser::root;
     }

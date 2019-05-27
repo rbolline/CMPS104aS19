@@ -84,7 +84,7 @@ void astree::print (FILE* outfile, astree* tree, int depth) {
     if (strstr (tname, "TOK_") == tname) tname += 4;
     fprintf (outfile, "%s \"%s\" (%zd.%zd.%zd)\n",
                 tname, tree->lexinfo->c_str(),
-                tree->lloc.filenr, tree->lloc.linenr, tree->lloc.offset);
+        tree->lloc.filenr, tree->lloc.linenr, tree->lloc.offset);
     for (astree* child: tree->children) {
         astree::print (outfile, child, depth + 1);
     }
