@@ -111,7 +111,7 @@ $$ = (new astree(TOK_FUNCTION, $1->lloc, ""))
         ->adopt((new astree(TOK_TYPE_ID, $1->lloc, ""))->adopt($1, $2)
                 , $3, $6); }
           | type '[' ']' TOK_IDENT '(' funcident ')' block { destroy($7);
-$5->symbol = TOK_PARAM; $5->adopt($4); destroy($2, $3);
+$5->symbol = TOK_PARAM; $5->adopt($6); destroy($2, $3);
 $$ = (new astree(TOK_FUNCTION, $1->lloc, ""))
         ->adopt((new astree(TOK_TYPE_ID, $1->lloc, ""))->adopt($1, $4)
                 , $5, $8); }
@@ -187,7 +187,6 @@ ifelse    : TOK_IF '(' expr ')' statement %prec TOK_IF
 
 
 dangling  : TOK_ELSE statement       { destroy($1); $$ = $2; }
-          | %prec TOK_ELSE           { $$ = nullptr; }
           ;
 
 
