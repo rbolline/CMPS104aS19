@@ -1,7 +1,7 @@
-# 1 "oc-programs/93-semantics.oc"
+# 1 "93-semantics.oc"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "oc-programs/93-semantics.oc"
+# 1 "93-semantics.oc"
 
 
 
@@ -53,21 +53,21 @@
    4  11.013   281  TOK_IDENT    null
    4  11.017    59  ';'          ;
 
-   4  12.004   281  TOK_IDENT    bool
-   4  12.009   281  TOK_IDENT    x
-   4  12.011    61  '='          =
-   4  12.013   281  TOK_IDENT    a
-   4  12.015   276  TOK_LT       <
-   4  12.017   281  TOK_IDENT    b
-   4  12.018    59  ';'          ;
+   4  12.004   259  TOK_INT      int
+   4  12.008   281  TOK_IDENT    x
+   4  12.010    61  '='          =
+   4  12.012   281  TOK_IDENT    a
+   4  12.014   276  TOK_LT       <
+   4  12.016   281  TOK_IDENT    b
+   4  12.017    59  ';'          ;
 
-   4  13.004   281  TOK_IDENT    bool
-   4  13.009   281  TOK_IDENT    y
-   4  13.011    61  '='          =
-   4  13.013   281  TOK_IDENT    a
-   4  13.014   274  TOK_EQ       ==
-   4  13.016   281  TOK_IDENT    b
-   4  13.017    59  ';'          ;
+   4  13.004   259  TOK_INT      int
+   4  13.008   281  TOK_IDENT    y
+   4  13.010    61  '='          =
+   4  13.012   281  TOK_IDENT    a
+   4  13.013   274  TOK_EQ       ==
+   4  13.015   281  TOK_IDENT    b
+   4  13.016    59  ';'          ;
 
    4  14.004   267  TOK_RETURN   return
    4  14.011   284  TOK_STRINGCON "foobar"

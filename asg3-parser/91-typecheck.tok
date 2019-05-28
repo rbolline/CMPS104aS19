@@ -1,8 +1,8 @@
-# 1 "oc-programs/91-typecheck.oc"
+# 1 "91-typecheck.oc"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "oc-programs/91-typecheck.oc"
-# 9 "oc-programs/91-typecheck.oc"
+# 1 "91-typecheck.oc"
+# 9 "91-typecheck.oc"
    5   9.001   259  TOK_INT      int
    5   9.004    91  '['          [
    5   9.005    93  ']'          ]
@@ -167,7 +167,7 @@
 
    5  28.004   266  TOK_WHILE    while
    5  28.010    40  '('          (
-   5  28.011   281  TOK_IDENT    true
+   5  28.011   281  TOK_IDENT    TRUE
    5  28.015    41  ')'          )
    5  28.017   123  '{'          {
    5  28.018   281  TOK_IDENT    a

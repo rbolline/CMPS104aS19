@@ -1,11 +1,11 @@
-# 1 "oc-programs/03-test3.oc"
+# 1 "03-test3.oc"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "oc-programs/03-test3.oc"
+# 1 "03-test3.oc"
 
 
-# 1 "oc-programs/oclib.h" 1
-# 22 "oc-programs/oclib.h"
+# 1 "oclib.h" 1
+# 22 "oclib.h"
    6  22.001   258  TOK_VOID     void
    6  22.006   281  TOK_IDENT    fail
    6  22.011    40  '('          (
@@ -64,7 +64,7 @@
    6  30.014    41  ')'          )
    6  30.015    59  ';'          ;
 
-# 4 "oc-programs/03-test3.oc" 2
+# 4 "03-test3.oc" 2
 
    7   5.001   259  TOK_INT      int
    7   5.005   281  TOK_IDENT    main
