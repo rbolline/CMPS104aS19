@@ -31,3 +31,10 @@ using namespace std;
 //Post order traversal of AST
 //typechecking grammar implementation
 //Call from oc.cpp
+
+
+
+void postordertraversal(astree* tree){
+
+}
+ 

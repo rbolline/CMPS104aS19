@@ -28,6 +28,7 @@ using namespace std;
 #include "auxlib.h"
 #include "emitter.h"
 #include "lyutils.h"
+#include "symtable.h"
 
 
 const string CPP = "/usr/bin/cpp -nostdinc";
@@ -153,7 +154,10 @@ int main (int argc, char** argv) {
     int opt;
     yy_flex_debug = 0;
     yydebug = 0;
-
+    if (argc < 2){
+        std::cout << "oc: Error: No arguments \n";
+        return EXIT_FAILURE;
+    }
     while((opt = getopt(argc, argv, "ly@:D:")) != -1){
         switch(opt) {
             case 'l':
@@ -223,6 +227,7 @@ int main (int argc, char** argv) {
     if (x) {
         errprintf ("parse failed (%d)\n", x);
     }else {
+        postordertraversal (parser::root);
         astree::print (astfile, parser::root);
         //emit_sm_code (parser::root);
         //delete parser::root;

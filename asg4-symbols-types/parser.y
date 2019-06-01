@@ -51,9 +51,13 @@ achaloya
 %right  '^'
 %right  POS NEG
 %right  TOK_ELSE
+%left   '[' '.'
+
+%nonassoc '('
+
+%start  start
 
 
-
 %%
 /*{*/
 start     : program               { $$ = $1 = nullptr; }
@@ -75,9 +79,6 @@ structdef : TOK_STRUCT TOK_IDENT '{' {destroy($3); $$ = $1->adopt($2);}
         | structdef '}' ';'             {destroy($2, $3); $$ = $1;}
         ;
 
-
-          ;
-
 type      : plaintype                     { $$ = $1; }
           | TOK_ARRAY TOK_LT plaintype TOK_GT   { destroy($2, $4);
                                           $$ = $1->adopt($3); }
@@ -89,9 +90,6 @@ plaintype : TOK_VOID                              { $$ = $1; }
       | TOK_PTR TOK_LT TOK_STRUCT TOK_IDENT TOK_GT  { destroy($2, $3);
                                                 destroy($5);
                                                 $$ = $1->adopt($4); }
-      | TOK_PTR TOK_LT TOK_IDENT TOK_GT  { destroy($2);
-                                                destroy($4);
-                                                $$ = $1->adopt($3); }
           ;
 
 function  : type TOK_IDENT '(' funcident ')' block { destroy($5);

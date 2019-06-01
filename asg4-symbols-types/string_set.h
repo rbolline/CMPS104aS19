@@ -11,7 +11,7 @@ achaloya
 #include <string>
 #include <unordered_set>
 using namespace std;
-
+ 
 #include <stdio.h>
 
 struct string_set {
