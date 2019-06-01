@@ -22,6 +22,11 @@ using namespace std;
 #include "auxlib.h"
 #include "emitter.h"
 #include "lyutils.h"
+<<<<<<< HEAD
+=======
+
+struct symbol;
+>>>>>>> 03caa01d8b81fa8333353b6ef37ef1f0f06eca49
 
 enum class attr {
 VOID, INT, NULLPTR_T, STRING, 
@@ -32,6 +37,13 @@ CONST, VREG, VADDR, BITSET_SIZE,
 const int bitlen = static_cast<int>(attr::BITSET_SIZE);
 using attr_bitset = bitset<bitlen>;
 
+
+const int bitlen = static_cast<int>(attr::BITSET_SIZE);
+using attr_bitset = bitset<bitlen>;
+
+using symbol_table = unordered_map<const string*, symbol*>;
+
+
 struct symbol { 
     attr_bitset attributes; 
     size_t sequence; 
@@ -41,6 +53,7 @@ struct symbol {
     vector<symbol*>* parameters; 
 };
 
+<<<<<<< HEAD
 using symbol_table = unordered_map<const string*, symbol*>;
 using symbol_entry = symbol_table::value_type;
 
@@ -51,5 +64,11 @@ void postordertraversal(astree*);
 void symtableprint(FILE*);
 
 
+=======
+using symbol_entry = symbol_table::value_type;
+
+void postordertraversal(astree* node);
+void symtableprint(FILE* symfile);
+>>>>>>> 03caa01d8b81fa8333353b6ef37ef1f0f06eca49
 
 #endif
