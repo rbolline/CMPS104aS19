@@ -27,6 +27,7 @@ using namespace std;
 #include "auxlib.h"
 #include "emitter.h"
 #include "lyutils.h"
+#include "symtable.h"
 
 //Post order traversal of AST
 //typechecking grammar implementation
