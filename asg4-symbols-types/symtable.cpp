@@ -32,10 +32,8 @@ using namespace std;
 //Post order traversal of AST
 //typechecking grammar implementation
 //Call from oc.cpp
+int next_block = 1;
 
-
-
-void postordertraversal(astree* tree){
-
+void postordertraversal(FILE* outfile, astree* tree){
+    astree::print(outfile, tree, 0);
 }
- 

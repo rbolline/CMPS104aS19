@@ -227,7 +227,9 @@ int main (int argc, char** argv) {
     if (x) {
         errprintf ("parse failed (%d)\n", x);
     }else {
-        postordertraversal (parser::root);
+        FILE* symfile = 
+            fopen((stripsufx(filename) + ".sym").c_str(), "w");
+        postordertraversal (symfile, parser::root);
         astree::print (astfile, parser::root);
         //emit_sm_code (parser::root);
         //delete parser::root;
