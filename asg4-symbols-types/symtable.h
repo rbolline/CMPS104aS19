@@ -49,6 +49,6 @@ struct symbol {
 using symbol_entry = symbol_table::value_type;
 
 void postordertraversal(FILE* outfile, astree* tree);
-
+void setTypeAttr(astree* tree, symbol* sym);
 
 #endif
