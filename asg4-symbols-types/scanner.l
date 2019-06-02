@@ -39,26 +39,26 @@ STRINGCON       (\"([^\\"\n]|\\[\\'"0nt])*\")
 [ \t]+          { }
 \n              { lexer::newline(); }
 
-\'                { } 
-\"                { }
-\!                { }
-\\                { }
-\:                { }
-{CHARCON}         { return lexer::token (TOK_CHARCON); }
-{STRINGCON}       { return lexer::token (TOK_STRINGCON); } 
+
 ("if")            { return lexer::token (TOK_IF); }
 ("else")          { return lexer::token (TOK_ELSE); }
 ("while")         { return lexer::token (TOK_WHILE); }
 ("return")        { return lexer::token (TOK_RETURN); }
+("new")           { return lexer::token (TOK_NEW); }
 ("alloc")         { return lexer::token (TOK_ALLOC); }
 ("nullptr")       { return lexer::token (TOK_NULLPTR); }
 ("not")           { return lexer::token (TOK_NOT); }
+("reference")     { return lexer::token (TOK_REF); }
 ("int")           { return lexer::token (TOK_INT); }
 ("string")        { return lexer::token (TOK_STRING); }
+("char")          { return lexer::token (TOK_CHAR); }
+("BOOL")          { return lexer::token (TOK_BOOL); }
 ("struct")        { return lexer::token (TOK_STRUCT); }
 ("array")         { return lexer::token (TOK_ARRAY); }
 ("ptr")           { return lexer::token (TOK_PTR); }
 ("void")          { return lexer::token (TOK_VOID); }
+{CHARCON}         { return lexer::token (TOK_CHARCON); }
+{STRINGCON}       { return lexer::token (TOK_STRINGCON); } 
 {NUMBER}        { return lexer::token (TOK_INTCON); }
 {IDENT}         { return lexer::token (TOK_IDENT); }
 ","             { return lexer::token (','); }
@@ -67,6 +67,7 @@ STRINGCON       (\"([^\\"\n]|\\[\\'"0nt])*\")
 "-"             { return lexer::token ('-'); }
 "*"             { return lexer::token ('*'); }
 "/"             { return lexer::token ('/'); }
+"!"             { return lexer::token ('!'); }
 "^"             { return lexer::token ('^'); }
 "("             { return lexer::token ('('); }
 ")"             { return lexer::token (')'); }
@@ -89,4 +90,3 @@ STRINGCON       (\"([^\\"\n]|\\[\\'"0nt])*\")
 .               { lexer::badchar (*yytext); }
 
 %%
-

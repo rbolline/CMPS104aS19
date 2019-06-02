@@ -48,7 +48,7 @@ struct symbol {
 
 using symbol_entry = symbol_table::value_type;
 
-void postordertraversal(FILE*, astree*);
+void postordertraversal(FILE* outfile, astree* tree);
 
 
 #endif
