@@ -22,7 +22,7 @@ struct location {
 
 struct astree {
 
-   // Fields.
+   // Fields. 
    int symbol;               // token code
    location lloc;            // source location
    const string* lexinfo;    // pointer to lexical information

@@ -235,7 +235,7 @@ int main (int argc, char** argv) {
         //delete parser::root;
     }
 
-
+ 
     string strname = stripsufx(filename) + ".str";
     FILE * strfile = fopen(strname.c_str(), "w");
     string_set::dump(strfile); 

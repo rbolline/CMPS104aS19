@@ -36,7 +36,7 @@ const int bitlen = static_cast<int>(attr::BITSET_SIZE);
 using attr_bitset = bitset<bitlen>;
 
 using symbol_table = unordered_map<const string*, symbol*>;
-
+ 
 struct symbol { 
     attr_bitset attributes; 
     size_t sequence; 
