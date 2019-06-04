@@ -32,7 +32,7 @@ achaloya
 }
 
 %token TOK_VOID TOK_INT TOK_STRING TOK_BOOL TOK_REF TOK_CHAR
-%token TOK_IF TOK_ELSE TOK_WHILE TOK_RETURN TOK_STRUCT
+%token TOK_IF TOK_ELSE TOK_WHILE TOK_RETURN TOK_STRUCT TOK_FIELD
 %token TOK_NULLPTR TOK_ARRAY TOK_ARROW TOK_ALLOC TOK_PTR
 %token TOK_EQ TOK_NE TOK_LT TOK_LE TOK_GT TOK_GE TOK_NOT
 %token TOK_IDENT TOK_INTCON TOK_CHARCON TOK_STRINGCON
@@ -56,7 +56,7 @@ achaloya
 
 %start  start
 
-
+
 %%
 /*{*/
 start     : program               { $$ = $1 = nullptr; }
@@ -79,8 +79,8 @@ structdef : TOK_STRUCT TOK_IDENT '{' typeident '}' ';'
           ;
 
 
-typeident : type TOK_IDENT ';' typeident   { destroy ($3);
-                                           $$ = $1->adopt ($2, $4); } 
+typeident : type TOK_IDENT ';' typeident   { $3->symbol = TOK_FIELD; $1->adopt($2);
+                                           $$ = $3->adopt ($1, $4); } 
           | type TOK_IDENT ';'             { destroy ($3); $$ = $1->adopt($2); }
           |                                { $$ = nullptr; }
           ;
@@ -111,7 +111,7 @@ $$ = (new astree(TOK_FUNCTION, $1->lloc, ""))
         ->adopt((new astree(TOK_TYPE_ID, $1->lloc, ""))->adopt($1, $2)
                 , $3, $6); }
           | type '[' ']' TOK_IDENT '(' funcident ')' block { destroy($7);
-$5->symbol = TOK_PARAM; $5->adopt($6); destroy($2, $3);
+$5->symbol = TOK_PARAM; $5->adopt($4); destroy($2, $3);
 $$ = (new astree(TOK_FUNCTION, $1->lloc, ""))
         ->adopt((new astree(TOK_TYPE_ID, $1->lloc, ""))->adopt($1, $4)
                 , $5, $8); }
@@ -187,6 +187,7 @@ ifelse    : TOK_IF '(' expr ')' statement %prec TOK_IF
 
 
 dangling  : TOK_ELSE statement       { destroy($1); $$ = $2; }
+          | %prec TOK_ELSE           { $$ = nullptr; }
           ;
 
 
@@ -269,3 +270,4 @@ const char* parser::get_tname (int symbol) {
 bool is_defined_token (int symbol) {
    return YYTRANSLATE (symbol) > YYUNDEFTOK;
 }
+

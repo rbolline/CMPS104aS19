@@ -1,11 +1,10 @@
-# Makefile.deps created Mon Jun  3 14:00:24 PDT 2019 by make
+# Makefile.deps created Tue Jun  4 14:20:22 PDT 2019 by make
 astree.o: astree.cpp astree.h auxlib.h string_set.h lyutils.h yyparse.h
 lyutils.o: lyutils.cpp auxlib.h lyutils.h astree.h yyparse.h
 string_set.o: string_set.cpp auxlib.h string_set.h
 emitter.o: emitter.cpp astree.h auxlib.h emitter.h lyutils.h yyparse.h
 auxlib.o: auxlib.cpp auxlib.h
-symtable.o: symtable.cpp string_set.h astree.h auxlib.h emitter.h \
- lyutils.h yyparse.h symtable.h
+symtable.o: symtable.cpp symtable.h astree.h auxlib.h lyutils.h yyparse.h
 oc.o: oc.cpp string_set.h astree.h auxlib.h emitter.h lyutils.h yyparse.h \
  symtable.h
 yylex.o: yylex.cpp lyutils.h astree.h auxlib.h yyparse.h
