@@ -22,7 +22,7 @@ using namespace std;
 #include "lyutils.h"
 
 enum class attr {
-VOID, INT, NULLPTR_T, STRING, 
+VOID, INT, PTR, NULLPTR_T, STRING, 
 STRUCT, ARRAY, FUNCTION, VARIABLE, 
 FIELD, TYPEID, PARAM, LOCAL, LVAL, 
 CONST, VREG, VADDR, BITSET_SIZE,
