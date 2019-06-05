@@ -133,14 +133,8 @@ void postordertraversal (FILE* outfile, astree* tree){
                 }
             
                 symbol* param_sym = new symbol;
-                param_sym->lloc = param->lloc;
-                param_sym->attributes[static_cast<int>(attr::PARAM)] = 1;
-                param_sym->attributes[static_cast<int>(attr::VARIABLE)] = 1;
-                param_sym->attributes[static_cast<int>(attr::LVAL)] = 1;
-                param_sym = setTypeAttr(param->children[0], param_sym);
-                param_sym->sequence = seq;
+                param_sym = makeParamSym(param, seq, next_block, param_sym);
                 param_vector->push_back(param_sym);
-                param_sym->block_nr = next_block;
 
                 string* param_name = const_cast<string*>(param->children[1]->lexinfo);
                 
@@ -211,6 +205,9 @@ void postordertraversal (FILE* outfile, astree* tree){
         symbol_entry var_entry (var_name, var_sym);
         global_ident.insert(var_entry);
     }
+    else {
+        typecheck(tree);
+    }
 
     for (astree* child: tree->children) {
         next_block = 0;
@@ -218,6 +215,64 @@ void postordertraversal (FILE* outfile, astree* tree){
     }
 
     //astree::print(outfile, tree, 0);
+}
+
+void typecheck (astree* tree) {
+    int tok = tree->symbol;
+
+    if (tok == TOK_CALL){
+        string* call_name = const_cast<string*>(
+            tree->children[0]->lexinfo);
+
+        //check if fucion is declared
+        if (global_ident.find(call_name) == global_ident.end())
+            printf("error: function not declared\n");
+        else {
+            symbol* call_sym = global_ident.at(call_name);
+            call_sym->attributes[static_cast<int>(attr::VREG)] = 1;
+
+            //loop through parameters
+            vector<symbol*>* params = new vector<symbol*>;
+            size_t seq = 0;
+            for (astree* param: tree->children) {
+                string* param_name = const_cast<string*>(param->lexinfo);
+                if (param_name != call_name){
+                    symbol* param_sym = new symbol;
+                    param_sym = makeParamSym(param, seq, next_block, param_sym);
+                    params->push_back(param_sym);   
+                }
+                seq++;
+            }
+
+            if (params->size() != global_ident.at(call_name)->parameters->size())
+                printf("error: parameter size does not match\n");
+            else if (!matchingParameters(params, global_ident.at(call_name)->parameters))
+                printf("error: parameters do not match\n");
+        }
+    }
+}
+
+//incomplete
+bool matchingParameters(vector<symbol*>* a, vector<symbol*>* b){
+    for (uint i = 0; i<a->size(); i++){
+
+        if (a->at(i)->attributes[static_cast<int>(attr::VOID)] != b->at(i)->attributes[static_cast<int>(attr::VOID)]
+            ||a->at(i)->attributes[static_cast<int>(attr::INT)] != b->at(i)->attributes[static_cast<int>(attr::INT)]
+            ||a->at(i)->attributes[static_cast<int>(attr::STRING)] != b->at(i)->attributes[static_cast<int>(attr::STRING)])
+            return false;
+    }
+    return true;
+}
+
+symbol* makeParamSym(astree* param, size_t seq, int bl, symbol* param_sym){
+    param_sym->lloc = param->lloc;
+    param_sym->attributes[static_cast<int>(attr::PARAM)] = 1;
+    param_sym->attributes[static_cast<int>(attr::VARIABLE)] = 1;
+    param_sym->attributes[static_cast<int>(attr::LVAL)] = 1;
+    param_sym = setTypeAttr(param->children[0], param_sym);
+    param_sym->sequence = seq;
+    param_sym->block_nr = bl;
+    return param_sym;
 }
 
 string getAttr(attr_bitset a, symbol* sym){

@@ -49,6 +49,9 @@ struct symbol {
 void postordertraversal(FILE* outfile, astree* tree);
 symbol* setTypeAttr(astree* tree, symbol* sym);
 string getAttr(attr_bitset a, symbol* sym);
+void typecheck(astree* tree);
+symbol* makeParamSym(astree* param, size_t seq, int bl, symbol* param_sym);
+bool matchingParameters(vector<symbol*>* a, vector<symbol*>* b);
 
 #endif
 
