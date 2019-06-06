@@ -112,6 +112,11 @@ function  : type TOK_IDENT funcident ')' block { destroy($4); $3->symbol = TOK_P
           $$ = (new astree(TOK_FUNCTION, $1->lloc, ""))
           ->adopt((new astree(TOK_TYPE_ID, $1->lloc, ""))->adopt($1, $2)
                 , $3, $5); }
+          | type '[' ']' TOK_IDENT '(' ')' block { destroy($5, $6);
+$4->symbol = TOK_PARAM; destroy($2, $3);
+$$ = (new astree(TOK_FUNCTION, $1->lloc, ""))
+        ->adopt((new astree(TOK_TYPE_ID, $1->lloc, ""))->adopt($1, $4)
+                , $5, $7); }
           | type '[' ']' TOK_IDENT funcident ')' block { destroy($6);
 $4->symbol = TOK_PARAM; destroy($2, $3);
 $$ = (new astree(TOK_FUNCTION, $1->lloc, ""))
@@ -129,6 +134,8 @@ funcident : funcident ',' type TOK_IDENT               { destroy($2);
           $$ = $1->adopt((new astree(TOK_TYPE_ID, $1->lloc, ""))->adopt($3, $6)); }
           | '(' type TOK_IDENT                         { 
           $$ = $1->adopt((new astree(TOK_TYPE_ID, $1->lloc, ""))->adopt($2, $3)); }
+          | '(' type '[' ']' TOK_IDENT                 { destroy($3, $4); 
+          $$ = $1->adopt((new astree(TOK_TYPE_ID, $1->lloc, ""))->adopt($2, $5)); }
           ;
 
 
@@ -162,7 +169,7 @@ vardecl   : type TOK_IDENT ';'               { destroy($3);
           | type TOK_IDENT '=' expr ';'      { $3->symbol = TOK_TYPE_ID;
                                                destroy($5);
                                                $$ = $3->adopt($1, $2, $4); } 
-          | type '[' ']' TOK_IDENT '=' expr ';'      { $5->symbol = TOK_TYPE_ID;
+          | type '[' ']' TOK_IDENT '=' expr ';'      { $5->symbol = TOK_ARRAY;
                                                destroy($7); destroy($2, $3); 
                                                $$ = $5->adopt($1, $4, $6); }
           | TOK_IDENT '[' expr ']' '=' expr ';'      { $5->symbol = TOK_TYPE_ID;

@@ -229,7 +229,7 @@ int main (int argc, char** argv) {
     }else {
         FILE* symfile = 
             fopen((stripsufx(filename) + ".sym").c_str(), "w");
-        postordertraversal (symfile, parser::root);
+        makeSymFile (symfile, parser::root);
         astree::print (astfile, parser::root);
         //emit_sm_code (parser::root);
         //delete parser::root;

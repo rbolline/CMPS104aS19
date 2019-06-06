@@ -22,7 +22,7 @@ using namespace std;
 #include "lyutils.h"
 
 enum class attr {
-VOID, INT, PTR, NULLPTR_T, STRING, 
+VOID, INT, PTR, NULLPTR_T, STRING, BOOL, 
 STRUCT, ARRAY, FUNCTION, VARIABLE, 
 FIELD, TYPEID, PARAM, LOCAL, LVAL, 
 CONST, VREG, VADDR, BITSET_SIZE,
@@ -45,13 +45,14 @@ struct symbol {
     string id = "";
 };
 
-
+void makeSymFile(FILE* outfile, astree* root);
 void postordertraversal(FILE* outfile, astree* tree);
 symbol* setTypeAttr(astree* tree, symbol* sym);
 string getAttr(attr_bitset a, symbol* sym);
 void typecheck(astree* tree);
 symbol* makeParamSym(astree* param, size_t seq, int bl, symbol* param_sym);
 bool matchingParameters(vector<symbol*>* a, vector<symbol*>* b);
+symbol* makeVarSym(astree* var, int bl, symbol* var_sym);
 
 #endif
 
